@@ -26,10 +26,7 @@ if (!global.mongoClient) {
 let mongooseConnection: Promise<typeof mongoose>;
 
 if (!global.mongooseConnection) {
-  mongooseConnection = mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  } as ConnectOptions);
+  mongooseConnection = mongoose.connect(MONGODB_URI, {} as ConnectOptions);
   global.mongooseConnection = mongooseConnection;
 } else {
   mongooseConnection = global.mongooseConnection;

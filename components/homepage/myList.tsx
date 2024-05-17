@@ -14,6 +14,7 @@ type MyListProps = {
 const MyList: React.FC<MyListProps> = ({ userCollections }) => {
   const { status } = useSession();
   const [visibleUserCollections, setVisibleUserCollections] = useState<INovel[]>([]);
+  const pathname = usePathname();
 
   useEffect(() => {
     setVisibleUserCollections(userCollections.slice(0, 4));
@@ -25,7 +26,7 @@ const MyList: React.FC<MyListProps> = ({ userCollections }) => {
         <h2 className="text-2xl font-bold mb-4 text-default-800">My List</h2>
         <p className="text-default-600">
           Please{" "}
-          <NextLink href={`/Auth?form=login&callbackUrl=${encodeURIComponent(usePathname())}`}>
+          <NextLink href={`/Auth?form=login&callbackUrl=${encodeURIComponent(pathname)}`}>
             Login
           </NextLink>{" "}
           to view your list.

@@ -29,7 +29,7 @@ const SearchClient = () => {
       <SearchBar initialQuery={q || ''} />
       {q && (
         <h2 className="text-xl font-bold mb-4">
-          Search Results for "{q}"
+          Search Results for &quot;{q}&quot;
         </h2>
       )}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">

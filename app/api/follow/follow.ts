@@ -11,7 +11,7 @@ const createFollowLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 r
 // Rate limiting configuration for deleting a follow
 const deleteFollowLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes, 5 requests per windowMs
 
-async function postHandler(req: NextRequest) {
+async function POST(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await createFollowLimiter(req);
@@ -41,7 +41,7 @@ async function postHandler(req: NextRequest) {
   }
 }
 
-async function getHandler(req: NextRequest) {
+async function GET(req: NextRequest) {
   await connectToDatabase();
 
   try {
@@ -67,7 +67,7 @@ async function getHandler(req: NextRequest) {
   }
 }
 
-async function deleteHandler(req: NextRequest) {
+async function DELETE(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await deleteFollowLimiter(req);
@@ -87,4 +87,4 @@ async function deleteHandler(req: NextRequest) {
   }
 }
 
-export { postHandler as POST, getHandler as GET, deleteHandler as DELETE };
+export { POST, GET, DELETE };

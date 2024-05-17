@@ -3,7 +3,7 @@
 import { connectToDatabase } from '@/lib/db';
 import { Review } from '@/models/review';
 
-export async function GET(request: Request) {
+async function GET(request: Request) {
   try {
     await connectToDatabase();
     const totalReviews = await fetchTotalReviewsCount();
@@ -28,3 +28,5 @@ export async function GET(request: Request) {
 async function fetchTotalReviewsCount(): Promise<number> {
   return Review.countDocuments();
 }
+
+export { GET };

@@ -1,4 +1,3 @@
-// api/authors/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { validationResult } from 'express-validator';
 import { Author, IAuthor } from '@/models/author';
@@ -11,7 +10,7 @@ const createAuthorLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 r
 // Rate limiting configuration for updating or deleting an author
 const updateDeleteAuthorLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes, 5 requests per windowMs
 
-async function postHandler(req: NextRequest) {
+async function POST(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await createAuthorLimiter(req);
@@ -41,7 +40,7 @@ async function postHandler(req: NextRequest) {
   }
 }
 
-export async function getHandler(req: NextRequest) {
+async function GET(req: NextRequest) {
   await connectToDatabase();
 
   try {
@@ -62,7 +61,7 @@ export async function getHandler(req: NextRequest) {
   }
 }
 
-async function putHandler(req: NextRequest) {
+async function PUT(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await updateDeleteAuthorLimiter(req);
@@ -99,7 +98,7 @@ async function putHandler(req: NextRequest) {
   }
 }
 
-async function deleteHandler(req: NextRequest) {
+async function DELETE(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await updateDeleteAuthorLimiter(req);
@@ -119,4 +118,4 @@ async function deleteHandler(req: NextRequest) {
   }
 }
 
-export { postHandler as POST, getHandler as GET, putHandler as PUT, deleteHandler as DELETE };
+export { POST, GET, PUT, DELETE };

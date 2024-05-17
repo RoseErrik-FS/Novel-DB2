@@ -7,7 +7,7 @@ import { Publisher, IPublisher } from '@/models/publisher';
 import { Genre, IGenre } from '@/models/genre';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
-import mongoose from 'mongoose';
+
 
 // Rate limiting configuration for creating a novel
 const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
@@ -15,7 +15,7 @@ const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 re
 // Rate limiting configuration for updating or deleting a novel
 const updateDeleteNovelLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes, 5 requests per windowMs
 
-async function postHandler(req: NextRequest) {
+async function POST(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await createNovelLimiter(req);
@@ -83,7 +83,7 @@ async function postHandler(req: NextRequest) {
   }
 }
 
-async function getHandler(_req: Request) {
+async function GET(_req: Request) {
   await connectToDatabase();
   
 
@@ -100,7 +100,7 @@ async function getHandler(_req: Request) {
   }
 }
 
-async function putHandler(req: NextRequest) {
+async function PUT(req: NextRequest) {
   await connectToDatabase();
 
 
@@ -158,7 +158,7 @@ async function putHandler(req: NextRequest) {
   }
 }
 
-async function deleteHandler(req: NextRequest) {
+async function DELETE(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await updateDeleteNovelLimiter(req);
@@ -179,4 +179,4 @@ async function deleteHandler(req: NextRequest) {
   }
 }
 
-export { postHandler as POST, getHandler as GET, putHandler as PUT, deleteHandler as DELETE };
+export { POST, GET, PUT, DELETE };

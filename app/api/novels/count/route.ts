@@ -3,7 +3,7 @@
 import { connectToDatabase } from '@/lib/db';
 import { Novel } from '@/models/novel';
 
-export async function GET(request: Request) {
+async function GET(request: Request) {
   try {
     await connectToDatabase();
     const totalNovels = await fetchTotalNovelsCount();
@@ -28,3 +28,5 @@ export async function GET(request: Request) {
 async function fetchTotalNovelsCount(): Promise<number> {
   return Novel.countDocuments();
 }
+
+export { GET };

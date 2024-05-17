@@ -1,7 +1,7 @@
 import { generateSitemaps } from "@/app/Sitemap/sitemap";
 
 
-export async function GET(request: Request) {
+async function GET(request: Request) {
   const sitemaps = await generateSitemaps();
 
   return new Response(JSON.stringify(sitemaps), {
@@ -11,3 +11,5 @@ export async function GET(request: Request) {
     },
   });
 }
+
+export { GET };

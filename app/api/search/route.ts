@@ -6,7 +6,7 @@ import { rateLimiter } from '@/lib/rateLimiter';
 // Rate limiting configuration for searching novels
 const searchNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
 
-async function getHandler(req: NextRequest) {
+async function GET(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await searchNovelLimiter(req);
@@ -85,4 +85,4 @@ async function getHandler(req: NextRequest) {
   }
 }
 
-export { getHandler as GET };
+export { GET };

@@ -5,7 +5,7 @@ import { MyList, IMyList } from "@/models/myList";
 import { Novel, INovel } from "@/models/novel";
 import { connectToDatabase } from "@/lib/db";
 
-async function getHandler(req: NextRequest) {
+async function GET(req: NextRequest) {
   await connectToDatabase();
 
   const headers = Object.fromEntries(req.headers.entries());
@@ -27,7 +27,7 @@ async function getHandler(req: NextRequest) {
   }
 }
 
-async function postHandler(req: NextRequest) {
+async function POST(req: NextRequest) {
   await connectToDatabase();
 
   const headers = Object.fromEntries(req.headers.entries());
@@ -56,7 +56,7 @@ async function postHandler(req: NextRequest) {
   }
 }
 
-async function putHandler(req: NextRequest) {
+async function PUT(req: NextRequest) {
   await connectToDatabase();
 
   const headers = Object.fromEntries(req.headers.entries());
@@ -90,7 +90,7 @@ async function putHandler(req: NextRequest) {
   }
 }
 
-async function deleteHandler(req: NextRequest) {
+async function DELETE(req: NextRequest) {
   await connectToDatabase();
 
   const headers = Object.fromEntries(req.headers.entries());
@@ -116,4 +116,4 @@ async function deleteHandler(req: NextRequest) {
   }
 }
 
-export { getHandler as GET, postHandler as POST, putHandler as PUT, deleteHandler as DELETE };
+export { POST, GET, PUT, DELETE };

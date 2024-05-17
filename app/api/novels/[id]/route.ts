@@ -11,7 +11,7 @@ import { rateLimiter } from '@/lib/rateLimiter';
 // Rate limiting configuration for creating a novel
 const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   await connectToDatabase();
 
   try {
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 }
 
 
-export async function postHandler(req: NextRequest) {
+async function POST(req: NextRequest) {
   await connectToDatabase();
 
   const allowed = await createNovelLimiter(req);
@@ -88,3 +88,5 @@ export async function postHandler(req: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export { POST, GET};

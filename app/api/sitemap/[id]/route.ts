@@ -1,7 +1,7 @@
 import sitemap from "@/app/Sitemap/sitemap";
 
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+async function GET(request: Request, { params }: { params: { id: string } }) {
   const { id } = params;
   const sitemapData = await sitemap({ params: { id } });
 
@@ -12,3 +12,5 @@ export async function GET(request: Request, { params }: { params: { id: string }
     },
   });
 }
+
+export { GET };

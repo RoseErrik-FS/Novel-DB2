@@ -6,11 +6,11 @@ import NovelCard from '@/components/novels/NovelCard';
 import { INovel } from '@/models/novel';
 
 interface NewReleasesClientProps {
-  initialNovels: INovel[];
+  newReleases: INovel[];
 }
 
-const NewReleasesClient: React.FC<NewReleasesClientProps> = ({ initialNovels }) => {
-  const [novels, setNovels] = useState<INovel[]>(initialNovels || []);
+const NewReleasesClient: React.FC<NewReleasesClientProps> = ({ newReleases }) => {
+  const [novels, setNovels] = useState<INovel[]>(newReleases || []);
   const [currentPage, setCurrentPage] = useState(1);
   const [novelsPerPage] = useState(20);
 

@@ -29,14 +29,20 @@ interface SitemapId {
   id: string;
 }
 
+async function fetchJSON(url: string): Promise<any> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Failed to fetch ${url}: ${errorText}`);
+  }
+  return response.json();
+}
+
 export async function generateSitemaps(): Promise<SitemapId[]> {
   const baseUrl = `${domain}`;
 
-  const novelsResponse = await fetch(`${baseUrl}/api/novels`);
-  const novels: Novel[] = await novelsResponse.json();
-
-  const reviewsResponse = await fetch(`${baseUrl}/api/reviews`);
-  const reviews: Review[] = await reviewsResponse.json();
+  const novels: Novel[] = await fetchJSON(`${baseUrl}/api/novels`);
+  const reviews: Review[] = await fetchJSON(`${baseUrl}/api/reviews`);
 
   const totalNovels = novels.length;
   const totalReviews = reviews.length;
@@ -58,10 +64,18 @@ export async function generateSitemaps(): Promise<SitemapId[]> {
 export default async function sitemap({ params }: { params: { id: string } }): Promise<MetadataRoute.Sitemap> {
   const { id } = params;
   const baseUrl = `${domain}`;
-  const novelsResponse = await fetch(`${baseUrl}/api/novels`);
-  const novels: Novel[] = await novelsResponse.json();
-  const reviewsResponse = await fetch(`${baseUrl}/api/reviews`);
-  const reviews: Review[] = await reviewsResponse.json();
+  
+  let novels: Novel[] = [];
+  let reviews: Review[] = [];
+
+  try {
+    novels = await fetchJSON(`${baseUrl}/api/novels`);
+    reviews = await fetchJSON(`${baseUrl}/api/reviews`);
+  } catch (error) {
+    console.error('Error fetching data for sitemap:', error);
+    // Return an empty sitemap in case of errors to prevent build failures
+    return [];
+  }
 
   if (id === 'static') {
     return [
@@ -77,7 +91,7 @@ export default async function sitemap({ params }: { params: { id: string } }): P
     const [_, start, end] = id.split('-').map(Number);
     const novelChunk = novels.slice(start, end);
 
-    return novelChunk.map((novel: Novel, index: number) => ({
+    return novelChunk.map((novel: Novel) => ({
       url: `${domain}/novels/${novel._id}`,
       lastModified: novel.updatedAt,
       title: novel.title,
@@ -88,7 +102,7 @@ export default async function sitemap({ params }: { params: { id: string } }): P
     const [_, start, end] = id.split('-').map(Number);
     const reviewChunk = reviews.slice(start, end);
 
-    return reviewChunk.map((review: Review, index: number) => ({
+    return reviewChunk.map((review: Review) => ({
       url: `${domain}/reviews/${review._id}`,
       lastModified: review.updatedAt,
     }));

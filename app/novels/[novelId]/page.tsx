@@ -1,4 +1,5 @@
-import { GetServerSideProps } from 'next';
+// app/novels/[novelId]/page.tsx
+import { notFound } from 'next/navigation';
 import NovelDetails from "@/components/novels/NovelDetails";
 import AddNovelForm from "@/components/novels/AddNovelForm";
 import { fetchNovelById } from "@/lib/FetchNovels";
@@ -8,63 +9,47 @@ import { INovel } from '@/models/novel';
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 interface NovelPageProps {
-  novel?: INovel;
-  novelId: string;
-  metadata: {
-    title: string;
-    description?: string;
-    keywords?: string;
+  params: {
+    novelId: string;
   };
 }
 
-const NovelPage = ({ novel, novelId, metadata }: NovelPageProps) => {
-  if (novelId === "new") {
-    return <AddNovelForm />;
-  }
-
-  return novel ? (
-    <NovelDetails novel={novel} />
-  ) : (
-    <div>Novel not found.</div>
-  );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { novelId } = context.params as { novelId: string };
-
+export async function generateMetadata({ params }: NovelPageProps) {
+  const { novelId } = params;
   if (novelId === "new") {
     return {
-      props: {
-        novelId,
-        metadata: {
-          title: 'Add New Novel',
-        },
-      },
+      title: 'Add New Novel',
     };
   }
 
   try {
-    const novel = await fetchNovelById(baseUrl, novelId);
     const metadata = await generateNovelMetadata(baseUrl, novelId);
-
-    return {
-      props: {
-        novel,
-        novelId,
-        metadata,
-      },
-    };
+    return metadata;
   } catch (error) {
-    console.error('Error fetching novel or metadata:', error);
+    console.error('Error generating metadata:', error);
     return {
-      props: {
-        novel: null,
-        novelId,
-        metadata: {
-          title: 'Novel not found',
-        },
-      },
+      title: 'Novel not found',
     };
+  }
+}
+
+const NovelPage = async ({ params }: NovelPageProps) => {
+  const { novelId } = params;
+
+  if (novelId === "new") {
+    return <AddNovelForm />;
+  }
+
+  try {
+    const novel = await fetchNovelById(baseUrl, novelId);
+    if (!novel) {
+      notFound();
+    }
+
+    return <NovelDetails novel={novel} />;
+  } catch (error) {
+    console.error('Error fetching novel:', error);
+    notFound();
   }
 };
 

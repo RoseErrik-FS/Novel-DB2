@@ -6,7 +6,9 @@ import { rateLimiter } from '@/lib/rateLimiter';
 // Rate limiting configuration for searching novels
 const searchNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
 
-async function GET(req: NextRequest) {
+export const dynamic = 'force-dynamic';
+
+export async function GET(req: NextRequest): Promise<NextResponse> {
   await connectToDatabase();
 
   const allowed = await searchNovelLimiter(req);
@@ -16,7 +18,7 @@ async function GET(req: NextRequest) {
   }
 
   try {
-    const query = req.nextUrl.searchParams.get('q');
+    const query = req.nextUrl.searchParams.get('q') || '';
 
     const novels = await Novel.aggregate([
       {
@@ -84,5 +86,3 @@ async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
-
-export { GET };

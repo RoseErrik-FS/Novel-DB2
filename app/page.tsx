@@ -1,24 +1,16 @@
-import Head from 'next/head';
 import HomeClient from '@/components/homepage/HomeClient';
-import { fetchNovels } from '@/lib/FetchNovels';
+import { Metadata } from 'next';
 
-export const metadata = {
+export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
   title: 'Novel-DB - Home Page',
   description: 'Welcome to the home page',
+  keywords: 'novels, home, books, literature',
 };
 
-export default async function Home() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const userCollections = await fetchNovels(baseUrl);
+const Home = () => {
+  return <HomeClient initialUserCollections={[]} />;
+};
 
-  return (
-    <>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Add more meta tags here if needed */}
-      </Head>
-      <HomeClient userCollections={userCollections} />
-    </>
-  );
-}
+export default Home;

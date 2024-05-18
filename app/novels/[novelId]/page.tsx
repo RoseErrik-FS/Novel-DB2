@@ -1,10 +1,8 @@
-// app/novels/[novelId]/page.tsx
-import { notFound } from 'next/navigation';
-import NovelDetails from "@/components/novels/NovelDetails";
-import AddNovelForm from "@/components/novels/AddNovelForm";
-import { fetchNovelById } from "@/lib/FetchNovels";
-import { generateNovelMetadata } from "@/lib/GenerateMetadata";
-import { INovel } from '@/models/novel';
+import NovelClient from '@/components/novels/NovelsClient';
+import { generateNovelMetadata } from '@/lib/GenerateMetadata';
+import { Metadata } from 'next';
+
+export const dynamic = 'force-dynamic';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
@@ -14,11 +12,13 @@ interface NovelPageProps {
   };
 }
 
-export async function generateMetadata({ params }: NovelPageProps) {
+export async function generateMetadata({ params }: NovelPageProps): Promise<Metadata> {
   const { novelId } = params;
-  if (novelId === "new") {
+  if (novelId === 'new') {
     return {
       title: 'Add New Novel',
+      description: 'Add a new novel to the collection.',
+      keywords: 'add, novel, new',
     };
   }
 
@@ -29,28 +29,15 @@ export async function generateMetadata({ params }: NovelPageProps) {
     console.error('Error generating metadata:', error);
     return {
       title: 'Novel not found',
+      description: 'The novel you are looking for does not exist.',
+      keywords: 'novel, not found',
     };
   }
 }
 
-const NovelPage = async ({ params }: NovelPageProps) => {
+const NovelPage = ({ params }: NovelPageProps) => {
   const { novelId } = params;
-
-  if (novelId === "new") {
-    return <AddNovelForm />;
-  }
-
-  try {
-    const novel = await fetchNovelById(baseUrl, novelId);
-    if (!novel) {
-      notFound();
-    }
-
-    return <NovelDetails novel={novel} />;
-  } catch (error) {
-    console.error('Error fetching novel:', error);
-    notFound();
-  }
+  return <NovelClient novelId={novelId} />;
 };
 
 export default NovelPage;

@@ -3,6 +3,8 @@
 import { connectToDatabase } from '@/lib/db';
 import { Review } from '@/models/review';
 
+export const dynamic = 'force-dynamic';
+
 async function GET(request: Request) {
   try {
     await connectToDatabase();

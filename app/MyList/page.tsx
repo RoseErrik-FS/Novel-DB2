@@ -1,24 +1,16 @@
 import MyListClient from '@/components/novels/MyListClient';
-import { fetchMyList } from '@/lib/FetchMyList';
-import { generateMyListMetadata } from '@/lib/GenerateMetadata';
-import Head from 'next/head';
+import { Metadata } from 'next';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+export const dynamic = 'force-dynamic';
 
-const MyListPage = async () => {
-  const initialNovels = await fetchMyList();
-  const metadata = await generateMyListMetadata();
+export const metadata: Metadata = {
+  title: 'My List',
+  description: 'Your personal list of favorite novels',
+  keywords: 'my list, favorite novels, personal collection',
+};
 
-  return (
-    <>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords} />
-      </Head>
-      <MyListClient initialNovels={initialNovels} />
-    </>
-  );
+const MyListPage = () => {
+  return <MyListClient initialNovels={[]} />;
 };
 
 export default MyListPage;

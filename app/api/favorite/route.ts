@@ -5,6 +5,8 @@ import { Favorite, IFavorite } from '@/models/favorite';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
 
+export const dynamic = 'force-dynamic';
+
 // Rate limiting configuration for creating a favorite
 const createFavoriteLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
 

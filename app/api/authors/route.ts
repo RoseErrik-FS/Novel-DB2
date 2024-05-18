@@ -4,6 +4,8 @@ import { Author, IAuthor } from '@/models/author';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
 
+export const dynamic = 'force-dynamic';
+
 // Rate limiting configuration for creating an author
 const createAuthorLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
 

@@ -5,6 +5,8 @@ import { MyList, IMyList } from "@/models/myList";
 import { Novel, INovel } from "@/models/novel";
 import { connectToDatabase } from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 async function GET(req: NextRequest) {
   await connectToDatabase();
 

@@ -5,6 +5,8 @@ import { Follow, IFollow } from '@/models/follow';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
 
+export const dynamic = 'force-dynamic';
+
 // Rate limiting configuration for creating a follow
 const createFollowLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
 

@@ -7,6 +7,8 @@ import { User, IUser } from '@/models/user';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
 
+export const dynamic = 'force-dynamic';
+
 // Rate limiting configuration for creating a review
 const createReviewLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes, 5 requests per windowMs
 

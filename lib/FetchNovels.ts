@@ -1,7 +1,5 @@
 import { IMyList } from "@/models/myList";
 import { INovel } from "@/models/novel";
-import { checkApiHealth } from "./health";
-
 
 const fetchJSON = async (url: string): Promise<any> => {
   const response = await fetch(url);
@@ -27,8 +25,10 @@ const retry = async <T>(fn: () => Promise<T>, retries: number): Promise<T> => {
 };
 
 export async function fetchNovels(baseUrl: string): Promise<INovel[]> {
+  if (process.env.NEXT_PUBLIC_API_READY !== 'true') {
+    return []; // Return fallback data if the API is not ready
+  }
   try {
-    await checkApiHealth(`${baseUrl}/api/health`, 10, 3000); // Check API health before proceeding
     const response = await retry(() => fetchJSON(`${baseUrl}/api/novels`), 4);
     return response;
   } catch (error) {
@@ -38,19 +38,15 @@ export async function fetchNovels(baseUrl: string): Promise<INovel[]> {
 }
 
 export async function fetchAndSortNovels(baseUrl: string): Promise<INovel[]> {
-  try {
-    await checkApiHealth(`${baseUrl}/api/health`, 10, 3000); // Check API health before proceeding
-    const novels = await retry(() => fetchNovels(baseUrl), 4);
-    return novels.sort((a, b) => b.rating - a.rating);
-  } catch (error) {
-    console.error('Error fetching and sorting novels:', error);
-    return []; // Fallback to an empty array
-  }
+  const novels = await fetchNovels(baseUrl);
+  return novels.sort((a, b) => b.rating - a.rating);
 }
 
 export async function fetchNovelById(baseUrl: string, novelId: string): Promise<INovel | null> {
+  if (process.env.NEXT_PUBLIC_API_READY !== 'true') {
+    return null; // Return fallback data if the API is not ready
+  }
   try {
-    await checkApiHealth(`${baseUrl}/api/health`, 10, 3000); // Check API health before proceeding
     const response = await retry(() => fetchJSON(`${baseUrl}/api/novels/${novelId}`), 4);
     return response;
   } catch (error) {
@@ -60,19 +56,15 @@ export async function fetchNovelById(baseUrl: string, novelId: string): Promise<
 }
 
 export async function fetchNewReleases(baseUrl: string): Promise<INovel[]> {
-  try {
-    await checkApiHealth(`${baseUrl}/api/health`, 10, 3000); // Check API health before proceeding
-    const novels = await retry(() => fetchNovels(baseUrl), 4);
-    return novels.sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());
-  } catch (error) {
-    console.error('Error fetching new releases:', error);
-    return []; // Fallback to an empty array
-  }
+  const novels = await fetchNovels(baseUrl);
+  return novels.sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());
 }
 
 export async function fetchMyList(): Promise<INovel[]> {
+  if (process.env.NEXT_PUBLIC_API_READY !== 'true') {
+    return []; // Return fallback data if the API is not ready
+  }
   try {
-    await checkApiHealth(`/api/health`, 10, 3000); // Check API health before proceeding
     const response = await retry(() => fetchJSON("/api/MyList"), 4);
     const myLists: IMyList[] = response;
     return myLists.map((list) => list.novelId as unknown as INovel);

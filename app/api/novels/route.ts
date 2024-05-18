@@ -7,9 +7,10 @@ import { Genre, IGenre } from '@/models/genre';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
 
-// Rate limiting configuration
-const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
-const updateDeleteNovelLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes, 5 requests per windowMs
+export const dynamic = 'force-dynamic';
+
+const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10);
+const updateDeleteNovelLimiter = rateLimiter(15 * 60 * 1000, 5);
 
 async function POST(req: NextRequest) {
   await connectToDatabase();

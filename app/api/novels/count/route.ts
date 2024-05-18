@@ -1,12 +1,12 @@
-// app/api/novels/count/route.ts
-
 import { connectToDatabase } from '@/lib/db';
 import { Novel } from '@/models/novel';
+
+export const dynamic = 'force-dynamic';
 
 async function GET(request: Request) {
   try {
     await connectToDatabase();
-    const totalNovels = await fetchTotalNovelsCount();
+    const totalNovels = await Novel.countDocuments();
 
     return new Response(JSON.stringify({ count: totalNovels }), {
       status: 200,
@@ -23,10 +23,6 @@ async function GET(request: Request) {
       },
     });
   }
-}
-
-async function fetchTotalNovelsCount(): Promise<number> {
-  return Novel.countDocuments();
 }
 
 export { GET };

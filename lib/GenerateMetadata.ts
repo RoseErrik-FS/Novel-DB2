@@ -23,7 +23,7 @@ export async function generateNovelMetadata(baseUrl: string, novelId: string) {
   const novel = await fetchNovelById(baseUrl, novelId);
   if (!novel) {
     return {
-      title: 'Novel Not Found',
+      title: 'Novel not found',
       description: 'The novel you are looking for does not exist.',
     };
   }
@@ -73,3 +73,4 @@ export async function generateAuthMetadata(baseUrl: string) {
     keywords: 'login, register, authentication',
   };
 }
+

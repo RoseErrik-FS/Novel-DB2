@@ -1,24 +1,16 @@
 import PopularNovelsClient from '@/components/novels/PopularNovelsClient';
-import { fetchAndSortNovels } from '@/lib/FetchNovels';
-import { generatePopularNovelsMetadata } from '@/lib/GenerateMetadata';
-import Head from 'next/head';
+import { Metadata } from 'next';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+export const dynamic = 'force-dynamic';
 
-const PopularNovelsPage = async () => {
-  const initialNovels = await fetchAndSortNovels(baseUrl);
-  const metadata = await generatePopularNovelsMetadata(baseUrl);
+export const metadata: Metadata = {
+  title: 'Popular Novels',
+  description: 'Explore the most popular novels',
+  keywords: 'popular, novels, books, literature',
+};
 
-  return (
-    <>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords} />
-      </Head>
-      <PopularNovelsClient initialNovels={initialNovels} />
-    </>
-  );
+const PopularNovelsPage = () => {
+  return <PopularNovelsClient initialNovels={[]} />;
 };
 
 export default PopularNovelsPage;

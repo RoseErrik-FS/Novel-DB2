@@ -6,6 +6,7 @@ import NovelCard from "@/components/novels/NovelCard";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { fetchMyList } from '@/lib/FetchMyList';
+import { Spinner } from "@nextui-org/react";
 
 interface MyListClientProps {
   initialNovels: INovel[];
@@ -14,6 +15,7 @@ interface MyListClientProps {
 const MyListClient: React.FC<MyListClientProps> = ({ initialNovels }) => {
   const { data: session, status } = useSession();
   const [userCollections, setUserCollections] = useState<INovel[]>(initialNovels);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserCollections = async () => {
@@ -21,12 +23,17 @@ const MyListClient: React.FC<MyListClientProps> = ({ initialNovels }) => {
         const novels = await fetchMyList();
         setUserCollections(novels);
       }
+      setLoading(false);
     };
 
     fetchUserCollections();
   }, [status, session]);
 
   const pathname = usePathname();
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
+  }
 
   return (
     <div className="container mx-auto max-w-7xl px-6">

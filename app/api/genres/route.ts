@@ -5,6 +5,8 @@ import { Genre, IGenre } from '@/models/genre';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
 
+export const dynamic = 'force-dynamic';
+
 // Rate limiting configuration for creating a genre
 const createGenreLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
 

@@ -1,20 +1,18 @@
-import Head from 'next/head';
 import { Suspense } from 'react';
 import AuthClient from '@/components/Auth/AuthClient';
-import { generateAuthMetadata } from '@/lib/GenerateMetadata';
+import { Metadata } from 'next';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+export const dynamic = 'force-dynamic';
 
-const AuthPage = async () => {
-  const metadata = await generateAuthMetadata(baseUrl);
+export const metadata: Metadata = {
+  title: 'Auth Page',
+  description: 'Login or register to access your account',
+  keywords: 'login, register, authentication',
+};
 
+const AuthPage = () => {
   return (
     <>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords} />
-      </Head>
       <Suspense fallback={<div>Loading...</div>}>
         <AuthClient />
       </Suspense>

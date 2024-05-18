@@ -1,4 +1,3 @@
-// app/api/novels/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { validationResult } from 'express-validator';
 import { Novel, INovel } from '@/models/novel';
@@ -8,8 +7,9 @@ import { Genre, IGenre } from '@/models/genre';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
 
-// Rate limiting configuration for creating a novel
-const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
+export const dynamic = 'force-dynamic';
+
+const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10);
 
 async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   await connectToDatabase();
@@ -36,7 +36,6 @@ async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   }
 }
 
-
 async function POST(req: NextRequest) {
   await connectToDatabase();
 
@@ -53,7 +52,6 @@ async function POST(req: NextRequest) {
   try {
     const { title, description, releaseDate, coverImage, rating, status, authors, publisher, genres } = await req.json();
 
-    // Ensure authors, publisher, and genres exist
     const authorDocuments = await Author.find({ _id: { $in: authors } });
     if (authorDocuments.length !== authors.length) {
       return NextResponse.json({ error: 'One or more authors not found' }, { status: 404 });
@@ -89,4 +87,4 @@ async function POST(req: NextRequest) {
   }
 }
 
-export { POST, GET};
+export { POST, GET };

@@ -6,6 +6,8 @@ import { searchNovels } from '@/lib/search';
 import NovelCard from '@/components/novels/NovelCard';
 import { INovel } from '@/models/novel';
 import SearchBar from '@/components/search/SearchBar';
+import { checkApiHealth } from '@/lib/health';
+import { Spinner } from '@nextui-org/react';
 
 const SearchClient = () => {
   const searchParams = useSearchParams();
@@ -13,6 +15,23 @@ const SearchClient = () => {
   const [searchResults, setSearchResults] = useState<INovel[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [apiReady, setApiReady] = useState(false);
+  const [apiLoading, setApiLoading] = useState(true);
+
+  useEffect(() => {
+    const checkApi = async () => {
+      try {
+        await checkApiHealth('/api/health', 10, 3000);
+        setApiReady(true);
+      } catch (error) {
+        console.error('API is not ready:', error);
+      } finally {
+        setApiLoading(false);
+      }
+    };
+
+    checkApi();
+  }, []);
 
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -32,6 +51,14 @@ const SearchClient = () => {
 
     fetchSearchResults();
   }, [q]);
+
+  if (apiLoading) {
+    return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
+  }
+
+  if (!apiReady) {
+    return <div className="flex justify-center items-center h-screen">API is not available. Please try again later.</div>;
+  }
 
   return (
     <div className="container mx-auto max-w-7xl px-6">

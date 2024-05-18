@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   keywords: ['novels', 'search', 'books', 'literature'],
 };
 
+// Mark the page as dynamic
+export const dynamic = 'force-dynamic';
+
 export default function SearchPage() {
   return (
     <Suspense fallback={<div className="flex justify-center items-center h-screen"><Spinner /></div>}>

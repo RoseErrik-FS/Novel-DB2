@@ -13,23 +13,32 @@ declare global {
   var mongooseConnection: Promise<typeof mongoose> | undefined;
 }
 
+// MongoDB Client
 let clientPromise: Promise<MongoClient>;
 
-if (!global.mongoClient) {
+if (process.env.NODE_ENV === 'development') {
+  if (!global.mongoClient) {
+    const client = new MongoClient(MONGODB_URI);
+    global.mongoClient = client;
+    clientPromise = client.connect();
+  } else {
+    clientPromise = global.mongoClient.connect();
+  }
+} else {
   const client = new MongoClient(MONGODB_URI);
   clientPromise = client.connect();
-  global.mongoClient = client;
-} else {
-  clientPromise = global.mongoClient.connect();
 }
 
+// Mongoose Connection
 let mongooseConnection: Promise<typeof mongoose>;
 
-if (!global.mongooseConnection) {
-  mongooseConnection = mongoose.connect(MONGODB_URI, {} as ConnectOptions);
-  global.mongooseConnection = mongooseConnection;
-} else {
+if (process.env.NODE_ENV === 'development') {
+  if (!global.mongooseConnection) {
+    global.mongooseConnection = mongoose.connect(MONGODB_URI, {} as ConnectOptions);
+  }
   mongooseConnection = global.mongooseConnection;
+} else {
+  mongooseConnection = mongoose.connect(MONGODB_URI, {} as ConnectOptions);
 }
 
 // Ensure the mongoose connection is established

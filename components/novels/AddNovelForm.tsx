@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Input, Textarea, Button, Spacer } from '@nextui-org/react';
-import Select, { MultiValue, SingleValue, ActionMeta, StylesConfig } from 'react-select';
+import Select, { MultiValue, SingleValue, ActionMeta, StylesConfig, createFilter } from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import axios from 'axios';
 
 interface OptionType {
@@ -112,16 +113,37 @@ const AddNovelForm = () => {
     setFormData({ ...formData, [name]: selectedOptions });
   };
 
+  const handleCreateOption = (inputValue: string, name: keyof typeof formData) => {
+    const newOption = { value: inputValue, label: inputValue };
+    switch (name) {
+      case 'authors':
+        setAuthorOptions((prev) => [...prev, newOption]);
+        setFormData({ ...formData, authors: [...formData.authors, newOption] });
+        break;
+      case 'publisher':
+        setPublisherOptions((prev) => [...prev, newOption]);
+        setFormData({ ...formData, publisher: newOption });
+        break;
+      case 'genres':
+        setGenreOptions((prev) => [...prev, newOption]);
+        setFormData({ ...formData, genres: [...formData.genres, newOption] });
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('/api/novels', {
+      const response = await axios.post('/api/novels', {
         ...formData,
         authors: formData.authors.map(option => option.value),
         genres: formData.genres.map(option => option.value),
         publisher: formData.publisher ? formData.publisher.value : null,
       });
-      router.push('/novels'); // Redirect to novels page after successful addition
+      const newNovelId = response.data.id; // Assuming the response contains the new novel ID
+      router.push(`/novels/${newNovelId}`); // Redirect to the new novel's page
     } catch (error) {
       console.error('Failed to add novel', error);
     }
@@ -185,36 +207,45 @@ const AddNovelForm = () => {
         <option value="completed">Completed</option>
       </select>
       <label htmlFor="authors">Authors</label>
-      <Select
+      <CreatableSelect
         id="authors"
         name="authors"
         options={authorOptions}
         isMulti
         value={formData.authors}
-        onChange={handleSelectChange}
+        onChange={(selectedOptions, actionMeta) => handleSelectChange(selectedOptions, { ...actionMeta, name: 'authors' })}
+        onCreateOption={(inputValue) => handleCreateOption(inputValue, 'authors')}
         placeholder="Select or type to add authors"
         styles={customStyles}
+        isClearable
+        filterOption={createFilter({ ignoreAccents: false })}
       />
       <label htmlFor="publisher">Publisher</label>
-      <Select
+      <CreatableSelect
         id="publisher"
         name="publisher"
         options={publisherOptions}
         value={formData.publisher}
-        onChange={handleSelectChange}
+        onChange={(selectedOptions, actionMeta) => handleSelectChange(selectedOptions, { ...actionMeta, name: 'publisher' })}
+        onCreateOption={(inputValue) => handleCreateOption(inputValue, 'publisher')}
         placeholder="Select or type to add publisher"
         styles={customStyles}
+        isClearable
+        filterOption={createFilter({ ignoreAccents: false })}
       />
       <label htmlFor="genres">Genres</label>
-      <Select
+      <CreatableSelect
         id="genres"
         name="genres"
         options={genreOptions}
         isMulti
         value={formData.genres}
-        onChange={handleSelectChange}
+        onChange={(selectedOptions, actionMeta) => handleSelectChange(selectedOptions, { ...actionMeta, name: 'genres' })}
+        onCreateOption={(inputValue) => handleCreateOption(inputValue, 'genres')}
         placeholder="Select or type to add genres"
         styles={customStyles}
+        isClearable
+        filterOption={createFilter({ ignoreAccents: false })}
       />
       <Spacer y={1} />
       <Button type="submit">Add Novel</Button>

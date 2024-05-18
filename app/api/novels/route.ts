@@ -70,12 +70,13 @@ async function POST(req: NextRequest) {
     });
 
     await novel.save();
-    return NextResponse.json(novel, { status: 201 });
+    return NextResponse.json({ id: novel._id }, { status: 201 }); // Explicitly return the novel ID
   } catch (error) {
     console.error('Failed to create novel:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
 
 async function GET(req: NextRequest) {
   await connectToDatabase();

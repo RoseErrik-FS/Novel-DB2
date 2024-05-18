@@ -1,15 +1,14 @@
+// app/api/sitemap/route.ts
 import { generateSitemaps } from "@/app/Sitemap/sitemap";
+import { NextRequest, NextResponse } from "next/server";
 
-
-async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const sitemaps = await generateSitemaps();
 
-  return new Response(JSON.stringify(sitemaps), {
+  return NextResponse.json(sitemaps, {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
     },
   });
 }
-
-export { GET };

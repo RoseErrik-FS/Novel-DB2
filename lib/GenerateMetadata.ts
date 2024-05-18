@@ -66,7 +66,7 @@ export async function generateMyListMetadata() {
   };
 }
 
-export async function generateAuthMetadata() {
+export async function generateAuthMetadata(baseUrl: string) {
   return {
     title: 'Auth Page',
     description: 'Login or register to access your account',

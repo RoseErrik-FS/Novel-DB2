@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Input, Button } from "@nextui-org/react";
-import { SearchIcon } from "@/components/utils/icons"
+import { useRouter } from 'next/navigation';
+import { SetStateAction, useState } from 'react';
+import { Input, Button } from '@nextui-org/react';
+import { SearchIcon } from '@/components/utils/icons';
 
 interface SearchBarProps {
   initialQuery?: string;
 }
 
-const SearchBar = ({ initialQuery = "" }: SearchBarProps) => {
+const SearchBar = ({ initialQuery = '' }: SearchBarProps) => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState(initialQuery);
 
@@ -25,7 +25,7 @@ const SearchBar = ({ initialQuery = "" }: SearchBarProps) => {
         aria-label="Search"
         placeholder="Search novels..."
         value={searchQuery}
-        onValueChange={setSearchQuery}
+        onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSearchQuery(e.target.value)}
         size="lg"
         fullWidth
         startContent={
@@ -37,9 +37,8 @@ const SearchBar = ({ initialQuery = "" }: SearchBarProps) => {
           </Button>
         }
         classNames={{
-          inputWrapper: "!pr-0",
-          input: "!pr-0",
-          
+          inputWrapper: '!pr-0',
+          input: '!pr-0',
         }}
       />
     </form>

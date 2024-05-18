@@ -11,12 +11,22 @@ const SearchClient = () => {
   const searchParams = useSearchParams();
   const q = searchParams.get('q');
   const [searchResults, setSearchResults] = useState<INovel[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchSearchResults = async () => {
       if (q) {
-        const results = await searchNovels(q);
-        setSearchResults(results);
+        setLoading(true);
+        setError('');
+        try {
+          const results = await searchNovels(q);
+          setSearchResults(results);
+        } catch (err) {
+          setError('Failed to fetch search results');
+        } finally {
+          setLoading(false);
+        }
       }
     };
 
@@ -32,6 +42,8 @@ const SearchClient = () => {
           Search Results for &quot;{q}&quot;
         </h2>
       )}
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {searchResults.map((novel) => (
           <NovelCard key={novel._id?.toString()} novel={novel} />

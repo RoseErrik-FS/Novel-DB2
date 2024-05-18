@@ -1,16 +1,20 @@
-"use client"
+'use client';
+
 import React, { useState } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { Button, Spacer } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-interface Auth {
+
+interface AuthProps {
   isSignUp?: boolean;
 }
-const Auth: React.FC<Auth> = ({ isSignUp = false }) => {
+
+const Auth: React.FC<AuthProps> = ({ isSignUp = false }) => {
   const { status, data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+
   const handleSignOut = async () => {
     setIsLoading(true);
     try {
@@ -21,6 +25,7 @@ const Auth: React.FC<Auth> = ({ isSignUp = false }) => {
       setIsLoading(false);
     }
   };
+
   const handleGithubSignIn = async () => {
     setIsLoading(true);
     try {
@@ -33,6 +38,7 @@ const Auth: React.FC<Auth> = ({ isSignUp = false }) => {
       setError('An error occurred while signing in with GitHub');
     }
   };
+
   return (
     <div className="flex flex-col items-center justify-center">
       {status === 'authenticated' ? (
@@ -62,4 +68,5 @@ const Auth: React.FC<Auth> = ({ isSignUp = false }) => {
     </div>
   );
 };
+
 export default Auth;

@@ -1,4 +1,4 @@
-// app/api/my-list/route.ts
+// app/api/MyList/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from "next-auth/react";
 import { MyList, IMyList } from "@/models/myList";

@@ -3,13 +3,17 @@ import { config } from 'dotenv';
 
 config();
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const domain = process.env.NEXT_PUBLIC_DOMAIN || 'https://your-domain.com';
 
 export default async function robots(): Promise<MetadataRoute.Robots> {
-  const [totalNovels, totalReviews] = await Promise.all([
-    fetchTotalNovels(),
-    fetchTotalReviews(),
-  ]);
+  let totalNovels: number;
+
+  try {
+    totalNovels = await fetchTotalNovels();
+  } catch (error) {
+    console.error('Error fetching total novels:', error);
+    totalNovels = 0; // Fallback to 0 if fetching fails
+  }
 
   return {
     rules: {
@@ -20,19 +24,15 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
     sitemap: [
       `${domain}/api/sitemap/static`,
       ...generateNovelsChunkSitemaps(totalNovels),
-      ...generateReviewsChunkSitemaps(totalReviews),
     ],
   };
 }
 
 async function fetchTotalNovels(): Promise<number> {
   const response = await fetch(`${domain}/api/novels/count`);
-  const data = await response.json();
-  return data.count;
-}
-
-async function fetchTotalReviews(): Promise<number> {
-  const response = await fetch(`${domain}/api/reviews/count`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch total novels: ${response.statusText}`);
+  }
   const data = await response.json();
   return data.count;
 }
@@ -42,13 +42,6 @@ function generateNovelsChunkSitemaps(totalNovels: number): string[] {
   const chunkRanges = chunkRange(totalNovels, chunkSize);
 
   return chunkRanges.map(({ start, end }) => `${domain}/api/sitemap/novels-${start}-${end}`);
-}
-
-function generateReviewsChunkSitemaps(totalReviews: number): string[] {
-  const chunkSize = 50000;
-  const chunkRanges = chunkRange(totalReviews, chunkSize);
-
-  return chunkRanges.map(({ start, end }) => `${domain}/api/sitemap/reviews-${start}-${end}`);
 }
 
 function chunkRange(totalItems: number, chunkSize: number): { start: number; end: number }[] {

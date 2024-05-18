@@ -2,6 +2,9 @@
 	"name": "novel-db",
 	"version": "0.0.1",
 	"private": true,
+	"cacheDirectories": [
+		".next/cache"
+	],
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -50,5 +53,9 @@
 		"@types/forwarded": "^0.1.3",
 		"@types/mongoose": "^5.11.97",
 		"@types/proxy-addr": "^2.0.3"
+	},
+	"engines": {
+		"node": "18.x",
+		"npm": "9.x"
 	}
 }

@@ -1,39 +1,71 @@
-// app/novels/[novelId]/page.tsx
+import { GetServerSideProps } from 'next';
 import NovelDetails from "@/components/novels/NovelDetails";
 import AddNovelForm from "@/components/novels/AddNovelForm";
 import { fetchNovelById } from "@/lib/FetchNovels";
 import { generateNovelMetadata } from "@/lib/GenerateMetadata";
-import { Metadata } from 'next';
+import { INovel } from '@/models/novel';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
-export async function generateMetadata({ params }: { params: { novelId: string } }): Promise<Metadata> {
-  const { novelId } = params;
-
-  if (novelId === "new") {
-    return {
-      title: 'Add New Novel',
-    };
-  }
-
-  const metadata = await generateNovelMetadata(baseUrl, novelId);
-  return {
-    title: metadata.title,
-    description: metadata.description,
-    keywords: metadata.keywords,
+interface NovelPageProps {
+  novel?: INovel;
+  novelId: string;
+  metadata: {
+    title: string;
+    description?: string;
+    keywords?: string;
   };
 }
 
-const NovelPage = async ({ params }: { params: { novelId: string } }) => {
-  const { novelId } = params;
-
+const NovelPage = ({ novel, novelId, metadata }: NovelPageProps) => {
   if (novelId === "new") {
     return <AddNovelForm />;
   }
 
-  const novel = await fetchNovelById(baseUrl, novelId);
+  return novel ? (
+    <NovelDetails novel={novel} />
+  ) : (
+    <div>Novel not found.</div>
+  );
+};
 
-  return novel ? <NovelDetails novel={novel} /> : <div>Novel not found.</div>;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { novelId } = context.params as { novelId: string };
+
+  if (novelId === "new") {
+    return {
+      props: {
+        novelId,
+        metadata: {
+          title: 'Add New Novel',
+        },
+      },
+    };
+  }
+
+  try {
+    const novel = await fetchNovelById(baseUrl, novelId);
+    const metadata = await generateNovelMetadata(baseUrl, novelId);
+
+    return {
+      props: {
+        novel,
+        novelId,
+        metadata,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching novel or metadata:', error);
+    return {
+      props: {
+        novel: null,
+        novelId,
+        metadata: {
+          title: 'Novel not found',
+        },
+      },
+    };
+  }
 };
 
 export default NovelPage;

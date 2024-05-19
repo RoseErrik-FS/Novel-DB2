@@ -35,7 +35,7 @@ export const Navbar = () => {
     const searchQuery = e.currentTarget.elements.namedItem(
       "search"
     ) as HTMLInputElement;
-    router.push(`/search?q=${encodeURIComponent(searchQuery.value)}`);
+    router.push(`/Search?q=${encodeURIComponent(searchQuery.value)}`);
   };
 
   const searchInput = (

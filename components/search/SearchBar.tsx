@@ -16,7 +16,7 @@ const SearchBar = ({ initialQuery = "" }: SearchBarProps) => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    router.push(`/Search?q=${encodeURIComponent(searchQuery)}`);
   };
 
   return (

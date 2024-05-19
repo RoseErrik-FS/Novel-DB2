@@ -1,0 +1,11 @@
+{
+	"Add File Path Comment": {
+	  "scope": "javascript,typescript,javascriptreact,typescriptreact,css",
+	  "prefix": "fpc",
+	  "body": [
+		"// ${RELATIVE_FILEPATH}"
+	  ],
+	  "description": "Add a comment with the file path"
+	}
+  }
+  

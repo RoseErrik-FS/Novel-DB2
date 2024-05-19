@@ -1,6 +1,7 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// models\volume.ts
+import mongoose, { Document, Schema } from "mongoose";
 
-import { INovel } from './novel';
+import { INovel } from "./novel";
 
 export interface IVolume extends Document {
   number: number;
@@ -19,11 +20,12 @@ const volumeSchema: Schema<IVolume> = new mongoose.Schema({
   },
   novel: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Novel',
+    ref: "Novel",
     required: true,
   },
 });
 
-const Volume = mongoose.models.Volume || mongoose.model<IVolume>('Volume', volumeSchema);
+const Volume =
+  mongoose.models.Volume || mongoose.model<IVolume>("Volume", volumeSchema);
 
 export { Volume };

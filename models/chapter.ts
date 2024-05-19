@@ -1,6 +1,7 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// models\chapter.ts
+import mongoose, { Document, Schema } from "mongoose";
 
-import { IVolume } from './volume';
+import { IVolume } from "./volume";
 
 export interface IChapter extends Document {
   title: string;
@@ -25,11 +26,12 @@ const chapterSchema: Schema<IChapter> = new mongoose.Schema({
   },
   volume: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Volume',
+    ref: "Volume",
     required: true,
   },
 });
 
-const Chapter = mongoose.models.Chapter || mongoose.model<IChapter>('Chapter', chapterSchema);
+const Chapter =
+  mongoose.models.Chapter || mongoose.model<IChapter>("Chapter", chapterSchema);
 
 export { Chapter };

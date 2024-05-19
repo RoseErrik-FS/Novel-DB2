@@ -1,26 +1,30 @@
-import clientPromise from '@/lib/db';
-import { IUser } from '@/models/user';
-import { JWT } from 'next-auth/jwt';
-import NextAuth, { NextAuthOptions, Session } from 'next-auth';
-import { MongoDBAdapter, MongoDBAdapterOptions } from '@next-auth/mongodb-adapter';
-import GithubProvider from 'next-auth/providers/github';
+// app\api\auth\[...nextauth]\route.ts
+import clientPromise from "@/lib/db";
+import { IUser } from "@/models/user";
+import { JWT } from "next-auth/jwt";
+import NextAuth, { NextAuthOptions, Session } from "next-auth";
+import {
+  MongoDBAdapter,
+  MongoDBAdapterOptions,
+} from "@next-auth/mongodb-adapter";
+import GithubProvider from "next-auth/providers/github";
 
 const mongodbAdapterOptions: MongoDBAdapterOptions = {
   collections: {
-    Users: 'User',
+    Users: "User",
   },
 };
 
 const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID || '',
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
+      clientId: process.env.GITHUB_CLIENT_ID || "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
     }),
   ],
   adapter: MongoDBAdapter(clientPromise, mongodbAdapterOptions),
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
@@ -28,8 +32,8 @@ const authOptions: NextAuthOptions = {
     secret: process.env.JWT_SECRET,
   },
   pages: {
-    signIn: '/auth/signin',
-    error: '/auth/error',
+    signIn: "/auth",
+    error: "/auth/error",
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -77,7 +81,7 @@ const authOptions: NextAuthOptions = {
       /* Perform any necessary actions on session creation */
     },
   },
-  debug: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === "development",
 };
 
 const handler = NextAuth(authOptions);

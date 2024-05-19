@@ -1,12 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Novel } from '@/models/novel';
-import { connectToDatabase } from '@/lib/db';
-import { rateLimiter } from '@/lib/rateLimiter';
+// app\api\search\route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { Novel } from "@/models/novel";
+import { connectToDatabase } from "@/lib/db";
+import { rateLimiter } from "@/lib/rateLimiter";
 
 // Rate limiting configuration for searching novels
 const searchNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   await connectToDatabase();
@@ -14,43 +15,43 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const allowed = await searchNovelLimiter(req);
 
   if (!allowed) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   try {
-    const query = req.nextUrl.searchParams.get('q') || '';
+    const query = req.nextUrl.searchParams.get("q") || "";
 
     const novels = await Novel.aggregate([
       {
         $lookup: {
-          from: 'authors',
-          localField: 'authors',
-          foreignField: '_id',
-          as: 'authors',
+          from: "authors",
+          localField: "authors",
+          foreignField: "_id",
+          as: "authors",
         },
       },
       {
         $lookup: {
-          from: 'publishers',
-          localField: 'publisher',
-          foreignField: '_id',
-          as: 'publisher',
+          from: "publishers",
+          localField: "publisher",
+          foreignField: "_id",
+          as: "publisher",
         },
       },
       {
         $lookup: {
-          from: 'genres',
-          localField: 'genres',
-          foreignField: '_id',
-          as: 'genres',
+          from: "genres",
+          localField: "genres",
+          foreignField: "_id",
+          as: "genres",
         },
       },
       {
         $match: {
           $or: [
-            { title: { $regex: query, $options: 'i' } },
-            { 'authors.name': { $regex: query, $options: 'i' } },
-            { 'genres.name': { $regex: query, $options: 'i' } },
+            { title: { $regex: query, $options: "i" } },
+            { "authors.name": { $regex: query, $options: "i" } },
+            { "genres.name": { $regex: query, $options: "i" } },
           ],
         },
       },
@@ -82,7 +83,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(novels);
   } catch (error) {
-    console.error('Failed to search novels:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to search novels:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

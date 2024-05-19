@@ -1,11 +1,19 @@
-'use client';
+// components\novels\NovelDetails.tsx
+"use client";
 
-import React from 'react';
-import { INovel } from '@/models/novel';
-import { Card, Image, Divider, CardBody, CardHeader, Button } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
-import { IGenre } from '@/models/genre';
-import { useSession } from 'next-auth/react';
+import React from "react";
+import { INovel } from "@/models/novel";
+import {
+  Card,
+  Image,
+  Divider,
+  CardBody,
+  CardHeader,
+  Button,
+} from "@nextui-org/react";
+import { useRouter } from "next/navigation";
+import { IGenre } from "@/models/genre";
+import { useSession } from "next-auth/react";
 
 interface NovelDetailsProps {
   novel: INovel | null;
@@ -28,7 +36,7 @@ const NovelDetails: React.FC<NovelDetailsProps> = ({ novel }) => {
       <Card>
         <CardHeader>
           <h2 className="text-2xl font-bold">{novel.title}</h2>
-          {status === 'authenticated' && (
+          {status === "authenticated" && (
             <Button onClick={handleEditClick} className="ml-auto">
               Edit Novel
             </Button>
@@ -39,7 +47,7 @@ const NovelDetails: React.FC<NovelDetailsProps> = ({ novel }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Image
-                src={novel.coverImage ?? '/test.png'}
+                src={novel.coverImage ?? "/test.png"}
                 alt={novel.title}
                 width={200}
                 height={300}
@@ -52,17 +60,17 @@ const NovelDetails: React.FC<NovelDetailsProps> = ({ novel }) => {
                 Release Date: {new Date(novel.releaseDate).toLocaleDateString()}
               </p>
               <p className="text-sm text-gray-500">Status: {novel.status}</p>
-              {novel.publisher && 'name' in novel.publisher && (
+              {novel.publisher && "name" in novel.publisher && (
                 <p className="text-sm text-gray-500">
                   Publisher: {novel.publisher.name}
                 </p>
               )}
               <p className="text-sm text-gray-500">
-                Genres:{' '}
+                Genres:{" "}
                 {novel.genres
-                  .filter((genre): genre is IGenre => 'name' in genre)
+                  .filter((genre): genre is IGenre => "name" in genre)
                   .map((genre) => genre.name)
-                  .join(', ')}
+                  .join(", ")}
               </p>
             </div>
           </div>

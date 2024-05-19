@@ -1,4 +1,5 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// models\publisher.ts
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface IPublisher extends Document {
   name: string;
@@ -20,6 +21,8 @@ const publisherSchema: Schema<IPublisher> = new mongoose.Schema({
   },
 });
 
-const Publisher = mongoose.models.Publisher || mongoose.model<IPublisher>('Publisher', publisherSchema);
+const Publisher =
+  mongoose.models.Publisher ||
+  mongoose.model<IPublisher>("Publisher", publisherSchema);
 
 export { Publisher };

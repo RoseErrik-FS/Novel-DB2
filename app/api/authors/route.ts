@@ -1,10 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { validationResult } from 'express-validator';
-import { Author, IAuthor } from '@/models/author';
-import { connectToDatabase } from '@/lib/db';
-import { rateLimiter } from '@/lib/rateLimiter';
+// app\api\authors\route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { validationResult } from "express-validator";
+import { Author, IAuthor } from "@/models/author";
+import { connectToDatabase } from "@/lib/db";
+import { rateLimiter } from "@/lib/rateLimiter";
+import { authMiddleware } from "@/lib/AuthMiddleware";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 // Rate limiting configuration for creating an author
 const createAuthorLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
@@ -15,9 +17,14 @@ const updateDeleteAuthorLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes,
 async function POST(req: NextRequest) {
   await connectToDatabase();
 
+  const authResponse = await authMiddleware(req);
+  if (authResponse.status !== 200) {
+    return authResponse;
+  }
+
   const allowed = await createAuthorLimiter(req);
   if (!allowed) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   const errors = await validationResult(req);
@@ -37,8 +44,11 @@ async function POST(req: NextRequest) {
     await author.save();
     return NextResponse.json(author, { status: 201 });
   } catch (error) {
-    console.error('Failed to create author:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to create author:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
@@ -46,29 +56,40 @@ async function GET(req: NextRequest) {
   await connectToDatabase();
 
   try {
-    const id = req.nextUrl.searchParams.get('id');
+    const id = req.nextUrl.searchParams.get("id");
     if (id) {
-      const author = await Author.findById(id).select('name');
+      const author = await Author.findById(id).select("name");
       if (!author) {
-        return NextResponse.json({ error: 'Author not found' }, { status: 404 });
+        return NextResponse.json(
+          { error: "Author not found" },
+          { status: 404 }
+        );
       }
       return NextResponse.json(author);
     } else {
-      const authors = await Author.find().select('name');
+      const authors = await Author.find().select("name");
       return NextResponse.json(authors);
     }
   } catch (error) {
-    console.error('Failed to retrieve authors:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to retrieve authors:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
 async function PUT(req: NextRequest) {
   await connectToDatabase();
 
+  const authResponse = await authMiddleware(req);
+  if (authResponse.status !== 200) {
+    return authResponse;
+  }
+
   const allowed = await updateDeleteAuthorLimiter(req);
   if (!allowed) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   const errors = await validationResult(req);
@@ -80,7 +101,7 @@ async function PUT(req: NextRequest) {
     const { name, bio, website } = await req.json();
 
     const author = await Author.findByIdAndUpdate(
-      req.nextUrl.searchParams.get('id'),
+      req.nextUrl.searchParams.get("id"),
       {
         name,
         bio,
@@ -90,33 +111,46 @@ async function PUT(req: NextRequest) {
     );
 
     if (!author) {
-      return NextResponse.json({ error: 'Author not found' }, { status: 404 });
+      return NextResponse.json({ error: "Author not found" }, { status: 404 });
     }
 
     return NextResponse.json(author);
   } catch (error) {
-    console.error('Failed to update author:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to update author:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
 async function DELETE(req: NextRequest) {
   await connectToDatabase();
 
+  const authResponse = await authMiddleware(req);
+  if (authResponse.status !== 200) {
+    return authResponse;
+  }
+
   const allowed = await updateDeleteAuthorLimiter(req);
   if (!allowed) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   try {
-    const author = await Author.findByIdAndDelete(req.nextUrl.searchParams.get('id'));
+    const author = await Author.findByIdAndDelete(
+      req.nextUrl.searchParams.get("id")
+    );
     if (!author) {
-      return NextResponse.json({ error: 'Author not found' }, { status: 404 });
+      return NextResponse.json({ error: "Author not found" }, { status: 404 });
     }
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error('Failed to delete author:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to delete author:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 

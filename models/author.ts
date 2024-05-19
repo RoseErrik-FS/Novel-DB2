@@ -1,4 +1,5 @@
-import mongoose, { Document, Types, Schema } from 'mongoose';
+// models\author.ts
+import mongoose, { Document, Types, Schema } from "mongoose";
 
 export interface IAuthor extends Document {
   _id: Types.ObjectId;
@@ -21,6 +22,7 @@ const authorSchema: Schema<IAuthor> = new mongoose.Schema({
   },
 });
 
-const Author = mongoose.models.Author || mongoose.model<IAuthor>('Author', authorSchema);
+const Author =
+  mongoose.models.Author || mongoose.model<IAuthor>("Author", authorSchema);
 
 export { Author };

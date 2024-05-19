@@ -1,21 +1,26 @@
-'use client';
+// components\homepage\HomeClient.tsx
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import CurrentReleaseNovels from "@/components/homepage/newBookHome";
 import PopularNovels from "@/components/homepage/popularBookHome";
 import LatestBlogPost from "@/components/homepage/LatestBlogPost";
 import LatestNews from "@/components/homepage/LatestNews";
 import MyList from "@/components/homepage/myList";
 import { INovel } from "@/models/novel";
-import { fetchMyList } from '@/lib/FetchNovels';
-import { Spinner } from '@nextui-org/react';
+import { fetchMyList } from "@/lib/FetchNovels";
+import { Spinner } from "@nextui-org/react";
 
 interface HomeClientProps {
   initialUserCollections: INovel[];
 }
 
-export default function HomeClient({ initialUserCollections }: HomeClientProps) {
-  const [userCollections, setUserCollections] = useState<INovel[]>(initialUserCollections);
+export default function HomeClient({
+  initialUserCollections,
+}: HomeClientProps) {
+  const [userCollections, setUserCollections] = useState<INovel[]>(
+    initialUserCollections
+  );
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +30,7 @@ export default function HomeClient({ initialUserCollections }: HomeClientProps) 
         const collections = await fetchMyList();
         setUserCollections(collections);
       } catch (error) {
-        console.error('Error fetching user collections:', error);
+        console.error("Error fetching user collections:", error);
       } finally {
         setLoading(false);
       }
@@ -35,7 +40,11 @@ export default function HomeClient({ initialUserCollections }: HomeClientProps) 
   }, []);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
   }
 
   return (

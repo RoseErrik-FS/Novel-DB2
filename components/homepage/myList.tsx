@@ -1,9 +1,10 @@
-"use client"
+// components\homepage\myList.tsx
+"use client";
 import React, { useState, useEffect } from "react";
-import NextLink from 'next/link';
+import NextLink from "next/link";
 import { Button } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
-import { INovel } from '@/models/novel';
+import { INovel } from "@/models/novel";
 import NovelCard from "../novels/NovelCard";
 import { usePathname } from "next/navigation";
 
@@ -13,7 +14,9 @@ type MyListProps = {
 
 const MyList: React.FC<MyListProps> = ({ userCollections }) => {
   const { status } = useSession();
-  const [visibleUserCollections, setVisibleUserCollections] = useState<INovel[]>([]);
+  const [visibleUserCollections, setVisibleUserCollections] = useState<
+    INovel[]
+  >([]);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -26,7 +29,11 @@ const MyList: React.FC<MyListProps> = ({ userCollections }) => {
         <h2 className="text-2xl font-bold mb-4 text-default-800">My List</h2>
         <p className="text-default-600">
           Please{" "}
-          <NextLink href={`/Auth?form=login&callbackUrl=${encodeURIComponent(pathname)}`}>
+          <NextLink
+            href={`/Auth?form=login&callbackUrl=${encodeURIComponent(
+              pathname
+            )}`}
+          >
             Login
           </NextLink>{" "}
           to view your list.

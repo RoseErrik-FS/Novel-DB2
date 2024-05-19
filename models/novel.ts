@@ -1,7 +1,8 @@
-import mongoose, { Document, Schema } from 'mongoose';
-import { IAuthor } from './author';
-import { IPublisher } from './publisher';
-import { IGenre } from './genre';
+// models\novel.ts
+import mongoose, { Document, Schema } from "mongoose";
+import { IAuthor } from "./author";
+import { IPublisher } from "./publisher";
+import { IGenre } from "./genre";
 
 export interface INovel extends Document {
   title: string;
@@ -9,7 +10,7 @@ export interface INovel extends Document {
   releaseDate: Date;
   coverImage?: string | null;
   rating: number;
-  status: 'ongoing' | 'completed';
+  status: "ongoing" | "completed";
   authors: (mongoose.Types.ObjectId | IAuthor)[];
   publisher?: mongoose.Types.ObjectId | IPublisher | null;
   genres: (mongoose.Types.ObjectId | IGenre)[];
@@ -45,24 +46,24 @@ const novelSchema: Schema<INovel> = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: ['ongoing', 'completed'],
+      enum: ["ongoing", "completed"],
     },
     authors: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Author',
+        ref: "Author",
         required: true,
       },
     ],
     publisher: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Publisher',
+      ref: "Publisher",
       default: null,
     },
     genres: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Genre',
+        ref: "Genre",
         required: true,
       },
     ],
@@ -72,5 +73,6 @@ const novelSchema: Schema<INovel> = new mongoose.Schema(
   }
 );
 
-const Novel = mongoose.models.Novel || mongoose.model<INovel>('Novel', novelSchema);
+const Novel =
+  mongoose.models.Novel || mongoose.model<INovel>("Novel", novelSchema);
 export { Novel };

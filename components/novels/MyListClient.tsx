@@ -1,11 +1,12 @@
-'use client';
+// components\novels\MyListClient.tsx
+"use client";
 
 import React, { useState, useEffect } from "react";
-import { INovel } from '@/models/novel';
+import { INovel } from "@/models/novel";
 import NovelCard from "@/components/novels/NovelCard";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { fetchMyList } from '@/lib/FetchMyList';
+import { fetchMyList } from "@/lib/FetchMyList";
 import { Spinner } from "@nextui-org/react";
 
 interface MyListClientProps {
@@ -14,7 +15,8 @@ interface MyListClientProps {
 
 const MyListClient: React.FC<MyListClientProps> = ({ initialNovels }) => {
   const { data: session, status } = useSession();
-  const [userCollections, setUserCollections] = useState<INovel[]>(initialNovels);
+  const [userCollections, setUserCollections] =
+    useState<INovel[]>(initialNovels);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,7 +34,11 @@ const MyListClient: React.FC<MyListClientProps> = ({ initialNovels }) => {
   const pathname = usePathname();
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -48,7 +54,12 @@ const MyListClient: React.FC<MyListClientProps> = ({ initialNovels }) => {
         ) : (
           <p className="text-default-600">
             Please{" "}
-            <a href={`/Auth?form=login&callbackUrl=${encodeURIComponent(pathname)}`} className="text-primary-600 hover:text-primary-800">
+            <a
+              href={`/Auth?form=login&callbackUrl=${encodeURIComponent(
+                pathname
+              )}`}
+              className="text-primary-600 hover:text-primary-800"
+            >
               log in
             </a>{" "}
             to view your list.

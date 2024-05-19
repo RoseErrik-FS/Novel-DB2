@@ -1,7 +1,8 @@
-import { connectToDatabase } from '@/lib/db';
-import { Novel } from '@/models/novel';
+// app\api\novels\count\route.ts
+import { connectToDatabase } from "@/lib/db";
+import { Novel } from "@/models/novel";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 async function GET(request: Request) {
   try {
@@ -11,15 +12,15 @@ async function GET(request: Request) {
     return new Response(JSON.stringify({ count: totalNovels }), {
       status: 200,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
   } catch (error) {
-    console.error('Error fetching total novels count:', error);
-    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+    console.error("Error fetching total novels count:", error);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
       status: 500,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
   }

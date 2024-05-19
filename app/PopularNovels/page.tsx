@@ -1,12 +1,13 @@
-import PopularNovelsClient from '@/components/novels/PopularNovelsClient';
-import { Metadata } from 'next';
+// app\PopularNovels\page.tsx
+import PopularNovelsClient from "@/components/novels/PopularNovelsClient";
+import { Metadata } from "next";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: 'Popular Novels',
-  description: 'Explore the most popular novels',
-  keywords: 'popular, novels, books, literature',
+  title: "Popular Novels",
+  description: "Explore the most popular novels",
+  keywords: "popular, novels, books, literature",
 };
 
 const PopularNovelsPage = () => {

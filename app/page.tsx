@@ -1,12 +1,13 @@
-import HomeClient from '@/components/homepage/HomeClient';
-import { Metadata } from 'next';
+// app\page.tsx
+import HomeClient from "@/components/homepage/HomeClient";
+import { Metadata } from "next";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: 'Novel-DB - Home Page',
-  description: 'Welcome to the home page',
-  keywords: 'novels, home, books, literature',
+  title: "Novel-DB - Home Page",
+  description: "Welcome to the home page",
+  keywords: "novels, home, books, literature",
 };
 
 const Home = () => {

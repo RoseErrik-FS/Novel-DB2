@@ -1,7 +1,8 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// models\favorite.ts
+import mongoose, { Document, Schema } from "mongoose";
 
-import { IUser } from './user';
-import { INovel } from './novel';
+import { IUser } from "./user";
+import { INovel } from "./novel";
 
 export interface IFavorite extends Document {
   user: mongoose.Types.ObjectId | IUser;
@@ -11,16 +12,18 @@ export interface IFavorite extends Document {
 const favoriteSchema: Schema<IFavorite> = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   novel: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Novel',
+    ref: "Novel",
     required: true,
   },
 });
 
-const Favorite = mongoose.models.Favorite || mongoose.model<IFavorite>('Favorite', favoriteSchema);
+const Favorite =
+  mongoose.models.Favorite ||
+  mongoose.model<IFavorite>("Favorite", favoriteSchema);
 
 export { Favorite };

@@ -1,5 +1,6 @@
-import { MongoClient } from 'mongodb';
-import mongoose, { ConnectOptions } from 'mongoose';
+// lib\db.ts
+import { MongoClient } from "mongodb";
+import mongoose, { ConnectOptions } from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -16,7 +17,7 @@ declare global {
 // MongoDB Client
 let clientPromise: Promise<MongoClient>;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   if (!global.mongoClient) {
     const client = new MongoClient(MONGODB_URI);
     global.mongoClient = client;
@@ -32,9 +33,12 @@ if (process.env.NODE_ENV === 'development') {
 // Mongoose Connection
 let mongooseConnection: Promise<typeof mongoose>;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   if (!global.mongooseConnection) {
-    global.mongooseConnection = mongoose.connect(MONGODB_URI, {} as ConnectOptions);
+    global.mongooseConnection = mongoose.connect(
+      MONGODB_URI,
+      {} as ConnectOptions
+    );
   }
   mongooseConnection = global.mongooseConnection;
 } else {

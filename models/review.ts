@@ -1,7 +1,8 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// models\review.ts
+import mongoose, { Document, Schema } from "mongoose";
 
-import { IUser } from './user';
-import { INovel } from './novel';
+import { IUser } from "./user";
+import { INovel } from "./novel";
 
 export interface IReview extends Document {
   rating: number;
@@ -22,12 +23,12 @@ const reviewSchema: Schema<IReview> = new mongoose.Schema({
   },
   novel: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Novel',
+    ref: "Novel",
     required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   timestamp: {
@@ -36,6 +37,7 @@ const reviewSchema: Schema<IReview> = new mongoose.Schema({
   },
 });
 
-const Review = mongoose.models.Review || mongoose.model<IReview>('Review', reviewSchema);
+const Review =
+  mongoose.models.Review || mongoose.model<IReview>("Review", reviewSchema);
 
 export { Review };

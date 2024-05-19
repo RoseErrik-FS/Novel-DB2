@@ -1,7 +1,8 @@
-'use client';
+// components\navbar.tsx
+"use client";
 
 import { useSession, signOut } from "next-auth/react";
-import React from 'react';
+import React from "react";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -20,7 +21,7 @@ import {
 } from "@nextui-org/react";
 import NextLink from "next/link";
 import { SearchIcon } from "@/components/utils/icons";
-import { ThemeSwitch } from '@/components/utils/theme-switch';
+import { ThemeSwitch } from "@/components/utils/theme-switch";
 import { usePathname, useRouter } from "next/navigation";
 
 export const Navbar = () => {
@@ -31,7 +32,9 @@ export const Navbar = () => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const searchQuery = e.currentTarget.elements.namedItem("search") as HTMLInputElement;
+    const searchQuery = e.currentTarget.elements.namedItem(
+      "search"
+    ) as HTMLInputElement;
     router.push(`/search?q=${encodeURIComponent(searchQuery.value)}`);
   };
 
@@ -68,7 +71,9 @@ export const Navbar = () => {
       </NavbarBrand>
       <NavbarContent className="hidden lg:flex gap-4" justify="center">
         <NavbarItem isActive>
-          <NextLink href="/" aria-current="page">Home</NextLink>
+          <NextLink href="/" aria-current="page">
+            Home
+          </NextLink>
         </NavbarItem>
         <NavbarItem>
           <NextLink href="/MyList">My List</NextLink>
@@ -90,7 +95,11 @@ export const Navbar = () => {
         </NavbarItem>
         {!session && !loading && (
           <NavbarItem>
-            <NextLink href={`/Auth?form=login&callbackUrl=${encodeURIComponent(pathname)}`}>
+            <NextLink
+              href={`/Auth?form=login&callbackUrl=${encodeURIComponent(
+                pathname
+              )}`}
+            >
               Login / Register
             </NextLink>
           </NavbarItem>
@@ -117,7 +126,11 @@ export const Navbar = () => {
               <DropdownItem key="add-novel">
                 <NextLink href="/novels/new">Add Novel</NextLink>
               </DropdownItem>
-              <DropdownItem key="logout" color="danger" onPress={() => signOut()}>
+              <DropdownItem
+                key="logout"
+                color="danger"
+                onPress={() => signOut()}
+              >
                 Log Out
               </DropdownItem>
             </DropdownMenu>

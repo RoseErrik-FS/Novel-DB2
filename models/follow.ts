@@ -1,8 +1,9 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// models\follow.ts
+import mongoose, { Document, Schema } from "mongoose";
 
-import { IUser } from './user';
-import { IAuthor } from './author';
-import { INovel } from './novel';
+import { IUser } from "./user";
+import { IAuthor } from "./author";
+import { INovel } from "./novel";
 
 export interface IFollow extends Document {
   user: mongoose.Types.ObjectId | IUser;
@@ -13,19 +14,20 @@ export interface IFollow extends Document {
 const followSchema: Schema<IFollow> = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   followedAuthor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Author',
+    ref: "Author",
   },
   followedNovel: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Novel',
+    ref: "Novel",
   },
 });
 
-const Follow = mongoose.models.Follow || mongoose.model<IFollow>('Follow', followSchema);
+const Follow =
+  mongoose.models.Follow || mongoose.model<IFollow>("Follow", followSchema);
 
 export { Follow };

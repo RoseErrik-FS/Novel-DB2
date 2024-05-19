@@ -1,3 +1,4 @@
+// lib\FetchMyList.ts
 import { IMyList } from "@/models/myList";
 import { INovel } from "@/models/novel";
 
@@ -21,7 +22,7 @@ const retry = async <T>(fn: () => Promise<T>, retries: number): Promise<T> => {
       console.warn(`Attempt ${attempt} failed. Retrying...`);
     }
   }
-  throw new Error('All retry attempts failed.');
+  throw new Error("All retry attempts failed.");
 };
 
 export async function fetchMyList(): Promise<INovel[]> {

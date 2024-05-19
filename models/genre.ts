@@ -1,4 +1,5 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// models\genre.ts
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface IGenre extends Document {
   name: string;
@@ -12,6 +13,7 @@ const genreSchema: Schema<IGenre> = new mongoose.Schema({
   },
 });
 
-const Genre = mongoose.models.Genre || mongoose.model<IGenre>('Genre', genreSchema);
+const Genre =
+  mongoose.models.Genre || mongoose.model<IGenre>("Genre", genreSchema);
 
 export { Genre };

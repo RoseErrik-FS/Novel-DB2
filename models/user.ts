@@ -1,6 +1,7 @@
-import mongoose, { Model, Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
-import { DefaultUser } from 'next-auth/core/types';
+// models\user.ts
+import mongoose, { Model, Schema } from "mongoose";
+import bcrypt from "bcrypt";
+import { DefaultUser } from "next-auth/core/types";
 
 export interface IUser extends DefaultUser {
   _id: string;
@@ -46,8 +47,8 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
   }
 );
 
-userSchema.pre('save', async function (next) {
-  if (this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
   }
@@ -58,4 +59,5 @@ userSchema.methods.comparePassword = async function (password: string) {
   return bcrypt.compare(password, this.password);
 };
 
-export const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', userSchema);
+export const User: Model<IUser> =
+  mongoose.models.User || mongoose.model<IUser>("User", userSchema);

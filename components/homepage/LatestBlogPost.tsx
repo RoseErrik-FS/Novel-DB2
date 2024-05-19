@@ -1,3 +1,4 @@
+// components\homepage\LatestBlogPost.tsx
 "use client";
 
 import React from "react";
@@ -36,11 +37,19 @@ const LatestBlogPost = ({
         <CardBody className="p-0 pb-5">
           <div className="flex items-center">
             <div className="px-5 pb-4">
-              <Image src={image} width={100} height={100} alt={title} className="object-cover" />
+              <Image
+                src={image}
+                width={100}
+                height={100}
+                alt={title}
+                className="object-cover"
+              />
             </div>
             <div>
               <Tooltip content={title} isOpen={isHovered}>
-                <h4 className="text-lg font-bold text-default-800 truncate max-w-full">{title}</h4>
+                <h4 className="text-lg font-bold text-default-800 truncate max-w-full">
+                  {title}
+                </h4>
               </Tooltip>
               <p className="text-sm font-medium text-default-600">
                 by {author} - {date}

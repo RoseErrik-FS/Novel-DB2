@@ -1,6 +1,8 @@
-import { Metadata } from 'next';
-import NovelEditClient from '@/components/novels/NovelEditClient';
-import { fetchNovelById } from '@/lib/FetchNovels';
+// app\novels\[novelId]\edit\page.tsx
+import { Metadata } from "next";
+import NovelEditClient from "@/components/novels/NovelEditClient";
+import { fetchNovelById } from "@/lib/FetchNovels";
+import AuthWrapper from "@/components/Auth/AuthWrapper";
 
 interface EditNovelPageProps {
   params: {
@@ -8,53 +10,49 @@ interface EditNovelPageProps {
   };
 }
 
-export const generateMetadata = async ({ params }: EditNovelPageProps): Promise<Metadata> => {
+export const generateMetadata = async ({
+  params,
+}: EditNovelPageProps): Promise<Metadata> => {
   const { novelId } = params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  
-  console.log('Generating metadata for novelId:', novelId);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
   try {
     const novel = await fetchNovelById(baseUrl, novelId);
-    console.log('Fetched novel:', novel);
 
     if (!novel) {
-      throw new Error('Novel not found');
+      throw new Error("Novel not found");
     }
     return {
       title: `Edit ${novel.title}`,
       description: `Edit details for ${novel.title}`,
     };
   } catch (error) {
-    console.error('Failed to fetch novel metadata:', error);
+    console.error("Failed to fetch novel metadata:", error);
     return {
-      title: 'Novel not found',
-      description: 'The novel you are trying to edit does not exist.',
+      title: "Novel not found",
+      description: "The novel you are trying to edit does not exist.",
     };
   }
 };
 
 const isPublisherObject = (publisher: any): publisher is { name: string } => {
-  return publisher && typeof publisher === 'object' && 'name' in publisher;
+  return publisher && typeof publisher === "object" && "name" in publisher;
 };
 
 const EditNovelPage = async ({ params }: EditNovelPageProps) => {
   const { novelId } = params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  
-  console.log('Loading EditNovelPage for novelId:', novelId);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
   try {
     const novel = await fetchNovelById(baseUrl, novelId);
-    console.log('Fetched novel:', novel);
 
     if (!novel) {
-      throw new Error('Novel not found');
+      throw new Error("Novel not found");
     }
 
     const releaseDate = new Date(novel.releaseDate);
     if (isNaN(releaseDate.getTime())) {
-      throw new Error('Invalid release date');
+      throw new Error("Invalid release date");
     }
 
     const initialData = {
@@ -64,16 +62,26 @@ const EditNovelPage = async ({ params }: EditNovelPageProps) => {
       coverImage: novel.coverImage || null,
       rating: novel.rating,
       status: novel.status,
-      authors: novel.authors.map((author: any) => ({ value: author.name, label: author.name })),
-      publisher: isPublisherObject(novel.publisher) ? { value: novel.publisher.name, label: novel.publisher.name } : null,
-      genres: novel.genres.map((genre: any) => ({ value: genre.name, label: genre.name })),
+      authors: novel.authors.map((author: any) => ({
+        value: author.name,
+        label: author.name,
+      })),
+      publisher: isPublisherObject(novel.publisher)
+        ? { value: novel.publisher.name, label: novel.publisher.name }
+        : null,
+      genres: novel.genres.map((genre: any) => ({
+        value: genre.name,
+        label: genre.name,
+      })),
     };
 
-    console.log('Initial data for NovelEditClient:', initialData);
-
-    return <NovelEditClient initialData={initialData} novelId={novelId} />;
+    return (
+      <AuthWrapper>
+        <NovelEditClient initialData={initialData} novelId={novelId} />
+      </AuthWrapper>
+    );
   } catch (error) {
-    console.error('Failed to fetch novel', error);
+    console.error("Failed to fetch novel", error);
     return <div>Novel not found.</div>;
   }
 };

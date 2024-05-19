@@ -1,13 +1,14 @@
-import { Suspense } from 'react';
-import AuthClient from '@/components/Auth/AuthClient';
-import { Metadata } from 'next';
+// app\Auth\page.tsx
+import { Suspense } from "react";
+import AuthClient from "@/components/Auth/AuthClient";
+import { Metadata } from "next";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: 'Auth Page',
-  description: 'Login or register to access your account',
-  keywords: 'login, register, authentication',
+  title: "Auth Page",
+  description: "Login or register to access your account",
+  keywords: "login, register, authentication",
 };
 
 const AuthPage = () => {

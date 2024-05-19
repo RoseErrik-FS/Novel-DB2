@@ -1,30 +1,31 @@
-'use client';
+// components\search\SearchClient.tsx
+"use client";
 
-import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { searchNovels } from '@/lib/search';
-import NovelCard from '@/components/novels/NovelCard';
-import { INovel } from '@/models/novel';
-import SearchBar from '@/components/search/SearchBar';
-import { checkApiHealth } from '@/lib/health';
-import { Spinner } from '@nextui-org/react';
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { searchNovels } from "@/lib/search";
+import NovelCard from "@/components/novels/NovelCard";
+import { INovel } from "@/models/novel";
+import SearchBar from "@/components/search/SearchBar";
+import { checkApiHealth } from "@/lib/health";
+import { Spinner } from "@nextui-org/react";
 
 const SearchClient = () => {
   const searchParams = useSearchParams();
-  const q = searchParams.get('q');
+  const q = searchParams.get("q");
   const [searchResults, setSearchResults] = useState<INovel[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [apiReady, setApiReady] = useState(false);
   const [apiLoading, setApiLoading] = useState(true);
 
   useEffect(() => {
     const checkApi = async () => {
       try {
-        await checkApiHealth('/api/health', 10, 3000);
+        await checkApiHealth("/api/health", 10, 3000);
         setApiReady(true);
       } catch (error) {
-        console.error('API is not ready:', error);
+        console.error("API is not ready:", error);
       } finally {
         setApiLoading(false);
       }
@@ -37,12 +38,12 @@ const SearchClient = () => {
     const fetchSearchResults = async () => {
       if (q) {
         setLoading(true);
-        setError('');
+        setError("");
         try {
           const results = await searchNovels(q);
           setSearchResults(results);
         } catch (err) {
-          setError('Failed to fetch search results');
+          setError("Failed to fetch search results");
         } finally {
           setLoading(false);
         }
@@ -53,17 +54,25 @@ const SearchClient = () => {
   }, [q]);
 
   if (apiLoading) {
-    return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
   }
 
   if (!apiReady) {
-    return <div className="flex justify-center items-center h-screen">API is not available. Please try again later.</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        API is not available. Please try again later.
+      </div>
+    );
   }
 
   return (
     <div className="container mx-auto max-w-7xl px-6">
       <h1 className="text-2xl font-bold mb-4">Search Novels</h1>
-      <SearchBar initialQuery={q || ''} />
+      <SearchBar initialQuery={q || ""} />
       {q && (
         <h2 className="text-xl font-bold mb-4">
           Search Results for &quot;{q}&quot;

@@ -1,6 +1,7 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// models\character.ts
+import mongoose, { Document, Schema } from "mongoose";
 
-import { INovel } from './novel';
+import { INovel } from "./novel";
 
 export interface ICharacter extends Document {
   name: string;
@@ -19,11 +20,13 @@ const characterSchema: Schema<ICharacter> = new mongoose.Schema({
   },
   novel: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Novel',
+    ref: "Novel",
     required: true,
   },
 });
 
-const Character = mongoose.models.Character || mongoose.model<ICharacter>('Character', characterSchema);
+const Character =
+  mongoose.models.Character ||
+  mongoose.model<ICharacter>("Character", characterSchema);
 
 export { Character };

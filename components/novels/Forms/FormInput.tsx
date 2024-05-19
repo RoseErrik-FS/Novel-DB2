@@ -1,12 +1,14 @@
-// FormInput.tsx
-import React from 'react';
-import { Input, Textarea } from '@nextui-org/react';
+// components\novels\Forms\FormInput.tsx
+import React from "react";
+import { Input, Textarea } from "@nextui-org/react";
 
 interface FormInputProps {
   label: string;
   name: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   type?: string;
   required?: boolean;
   fullWidth?: boolean;
@@ -14,7 +16,17 @@ interface FormInputProps {
   max?: string;
 }
 
-const FormInput: React.FC<FormInputProps> = ({ label, name, value, onChange, type = "text", required = false, fullWidth = true, min, max }) => {
+const FormInput: React.FC<FormInputProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+  type = "text",
+  required = false,
+  fullWidth = true,
+  min,
+  max,
+}) => {
   return type === "textarea" ? (
     <Textarea
       label={label}

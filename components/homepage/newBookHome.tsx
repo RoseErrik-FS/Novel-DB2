@@ -1,11 +1,12 @@
-"use client"
+// components\homepage\newBookHome.tsx
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Button } from '@nextui-org/react';
-import NextLink from 'next/link';
-import { useRouter } from 'next/navigation';
-import NovelCard from '../novels/NovelCard';
-import { INovel } from '@/models/novel';
+import React, { useState, useEffect } from "react";
+import { Button } from "@nextui-org/react";
+import NextLink from "next/link";
+import { useRouter } from "next/navigation";
+import NovelCard from "../novels/NovelCard";
+import { INovel } from "@/models/novel";
 
 const CurrentReleaseNovels = () => {
   const [novels, setNovels] = useState<INovel[]>([]);
@@ -15,17 +16,19 @@ const CurrentReleaseNovels = () => {
   useEffect(() => {
     const fetchNovels = async () => {
       try {
-        const response = await fetch('/api/novels');
+        const response = await fetch("/api/novels");
         const data = await response.json();
-        const sortedNovels = data.sort((a: INovel, b: INovel) =>
-          new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+        const sortedNovels = data.sort(
+          (a: INovel, b: INovel) =>
+            new Date(b.releaseDate).getTime() -
+            new Date(a.releaseDate).getTime()
         );
         setNovels(sortedNovels);
       } catch (error) {
-        console.error('Error fetching novels:', error);
+        console.error("Error fetching novels:", error);
       }
     };
-  
+
     fetchNovels();
   }, []);
 
@@ -33,7 +36,9 @@ const CurrentReleaseNovels = () => {
 
   return (
     <div className="bg-default-100 p-4 rounded-lg">
-      <h2 className="text-2xl font-bold mb-4 text-default-800">Current Releases</h2>
+      <h2 className="text-2xl font-bold mb-4 text-default-800">
+        Current Releases
+      </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {visibleNovels.map((novel) => (
           <NovelCard key={novel._id?.toString()} novel={novel} />

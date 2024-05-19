@@ -1,13 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { validationResult } from 'express-validator';
-import { Novel, INovel } from '@/models/novel';
-import { Author, IAuthor } from '@/models/author';
-import { Publisher, IPublisher } from '@/models/publisher';
-import { Genre, IGenre } from '@/models/genre';
-import { connectToDatabase } from '@/lib/db';
-import { rateLimiter } from '@/lib/rateLimiter';
+// app\api\novels\route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { validationResult } from "express-validator";
+import { Novel, INovel } from "@/models/novel";
+import { Author, IAuthor } from "@/models/author";
+import { Publisher, IPublisher } from "@/models/publisher";
+import { Genre, IGenre } from "@/models/genre";
+import { connectToDatabase } from "@/lib/db";
+import { rateLimiter } from "@/lib/rateLimiter";
+import { authMiddleware } from "@/lib/AuthMiddleware";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10);
 const updateDeleteNovelLimiter = rateLimiter(15 * 60 * 1000, 5);
@@ -15,9 +17,14 @@ const updateDeleteNovelLimiter = rateLimiter(15 * 60 * 1000, 5);
 async function POST(req: NextRequest) {
   await connectToDatabase();
 
+  const authResponse = await authMiddleware(req);
+  if (authResponse.status !== 200) {
+    return authResponse;
+  }
+
   const allowed = await createNovelLimiter(req);
   if (!allowed) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   const errors = await validationResult(req);
@@ -26,7 +33,17 @@ async function POST(req: NextRequest) {
   }
 
   try {
-    const { title, description, releaseDate, coverImage, rating, status, authors, publisher, genres } = await req.json();
+    const {
+      title,
+      description,
+      releaseDate,
+      coverImage,
+      rating,
+      status,
+      authors,
+      publisher,
+      genres,
+    } = await req.json();
 
     const authorIds = await Promise.all(
       authors.map(async (authorName: string) => {
@@ -72,34 +89,44 @@ async function POST(req: NextRequest) {
     await novel.save();
     return NextResponse.json({ id: novel._id }, { status: 201 }); // Explicitly return the novel ID
   } catch (error) {
-    console.error('Failed to create novel:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to create novel:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
-
 
 async function GET(req: NextRequest) {
   await connectToDatabase();
 
   try {
     const novels = await Novel.find()
-      .populate('authors', 'name bio')
-      .populate('publisher', 'name location')
-      .populate('genres', 'name');
+      .populate("authors", "name bio")
+      .populate("publisher", "name location")
+      .populate("genres", "name");
 
     return NextResponse.json(novels);
   } catch (error) {
-    console.error('Failed to retrieve novels:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to retrieve novels:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
 async function PUT(req: NextRequest) {
   await connectToDatabase();
 
+  const authResponse = await authMiddleware(req);
+  if (authResponse.status !== 200) {
+    return authResponse;
+  }
+
   const allowed = await updateDeleteNovelLimiter(req);
   if (!allowed) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   const errors = await validationResult(req);
@@ -108,8 +135,18 @@ async function PUT(req: NextRequest) {
   }
 
   try {
-    const { title, description, releaseDate, coverImage, rating, status, authors, publisher, genres } = await req.json();
-    const id = req.nextUrl.searchParams.get('id');
+    const {
+      title,
+      description,
+      releaseDate,
+      coverImage,
+      rating,
+      status,
+      authors,
+      publisher,
+      genres,
+    } = await req.json();
+    const id = req.nextUrl.searchParams.get("id");
 
     const authorIds = await Promise.all(
       authors.map(async (authorName: string) => {
@@ -157,34 +194,45 @@ async function PUT(req: NextRequest) {
     );
 
     if (!novel) {
-      return NextResponse.json({ error: 'Novel not found' }, { status: 404 });
+      return NextResponse.json({ error: "Novel not found" }, { status: 404 });
     }
 
     return NextResponse.json(novel);
   } catch (error) {
-    console.error('Failed to update novel:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to update novel:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
 async function DELETE(req: NextRequest) {
   await connectToDatabase();
 
+  const authResponse = await authMiddleware(req);
+  if (authResponse.status !== 200) {
+    return authResponse;
+  }
+
   const allowed = await updateDeleteNovelLimiter(req);
   if (!allowed) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
   try {
-    const id = req.nextUrl.searchParams.get('id');
+    const id = req.nextUrl.searchParams.get("id");
     const novel = await Novel.findByIdAndDelete(id);
     if (!novel) {
-      return NextResponse.json({ error: 'Novel not found' }, { status: 404 });
+      return NextResponse.json({ error: "Novel not found" }, { status: 404 });
     }
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error('Failed to delete novel:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error("Failed to delete novel:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 

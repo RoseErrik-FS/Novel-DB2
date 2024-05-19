@@ -1,3 +1,4 @@
+// lib\search.ts
 import { INovel } from "@/models/novel";
 
 export const searchNovels = async (query: string): Promise<INovel[]> => {

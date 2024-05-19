@@ -142,7 +142,7 @@ const AddNovelForm = () => {
         genres: formData.genres.map(option => option.value),
         publisher: formData.publisher ? formData.publisher.value : null,
       });
-      const newNovelId = response.data.id; // Assuming the response contains the new novel ID
+      const newNovelId = response.data._id; // Extract the new novel ID from the response
       router.push(`/novels/${newNovelId}`); // Redirect to the new novel's page
     } catch (error) {
       console.error('Failed to add novel', error);

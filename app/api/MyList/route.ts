@@ -1,8 +1,7 @@
-// app\api\MyList\route.ts
+// app/api/MyList/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "next-auth/react";
 import { MyList, IMyList } from "@/models/myList";
-import { Novel, INovel } from "@/models/novel";
 import { connectToDatabase } from "@/lib/db";
 import { authMiddleware } from "@/lib/AuthMiddleware";
 
@@ -54,11 +53,12 @@ async function POST(req: NextRequest) {
   }
 
   try {
-    const { novelId } = await req.json();
+    const { novelId, collectionName } = await req.json();
 
     const myList: IMyList = new MyList({
       userId: session.user?.email,
       novelId,
+      collectionName,
     });
 
     await myList.save();
@@ -136,9 +136,9 @@ async function DELETE(req: NextRequest) {
   }
 
   try {
-    const id = req.nextUrl.searchParams.get("id");
+    const { novelId } = await req.json();
     const myList = await MyList.findOneAndDelete({
-      _id: id,
+      novelId,
       userId: session.user?.email,
     });
     if (!myList) {

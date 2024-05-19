@@ -1,13 +1,23 @@
 import { IMyList } from "@/models/myList";
 import { INovel } from "@/models/novel";
 
+// Improved fetchJSON with enhanced error handling
 const fetchJSON = async (url: string): Promise<any> => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Failed to fetch ${url}: ${errorText}`);
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to fetch ${url}: ${response.status} - ${errorText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`Error in fetchJSON: ${error.message}`);
+    } else {
+      console.error(`Unknown error in fetchJSON: ${String(error)}`);
+    }
+    throw error;
   }
-  return response.json();
 };
 
 const retry = async <T>(fn: () => Promise<T>, retries: number): Promise<T> => {
@@ -50,7 +60,11 @@ export async function fetchNovelById(baseUrl: string, novelId: string): Promise<
     const response = await retry(() => fetchJSON(`${baseUrl}/api/novels/${novelId}`), 4);
     return response;
   } catch (error) {
-    console.error('Error fetching novel:', error);
+    if (error instanceof Error) {
+      console.error('Error fetching novel:', error.message);
+    } else {
+      console.error('Unknown error fetching novel:', String(error));
+    }
     return null; // Fallback to null
   }
 }

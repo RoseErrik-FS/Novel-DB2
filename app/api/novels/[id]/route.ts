@@ -6,6 +6,7 @@ import { Publisher, IPublisher } from '@/models/publisher';
 import { Genre, IGenre } from '@/models/genre';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimiter } from '@/lib/rateLimiter';
+import mongoose from 'mongoose';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +17,7 @@ async function GET(req: NextRequest, { params }: { params: { id: string } }) {
 
   try {
     const { id } = params;
-    if (id === "new") {
+    if (!id) {
       return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
     }
 
@@ -87,4 +88,82 @@ async function POST(req: NextRequest) {
   }
 }
 
-export { POST, GET };
+async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+  await connectToDatabase();
+
+  try {
+    const { id } = params;
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ error: 'Invalid novel ID' }, { status: 400 });
+    }
+
+    const allowed = await createNovelLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
+    const { title, description, releaseDate, coverImage, rating, status, authors, publisher, genres } = await req.json();
+
+    // Convert author names to ObjectIds
+    const authorIds = await Promise.all(authors.map(async (name: string) => {
+      let author = await Author.findOne({ name });
+      if (!author) {
+        author = new Author({ name });
+        await author.save();
+      }
+      return author._id;
+    }));
+
+    // Convert publisher name to ObjectId
+    let publisherDoc = await Publisher.findOne({ name: publisher });
+    if (!publisherDoc) {
+      publisherDoc = new Publisher({ name: publisher });
+      await publisherDoc.save();
+    }
+    const publisherId = publisherDoc._id;
+
+    // Convert genre names to ObjectIds
+    const genreIds = await Promise.all(genres.map(async (name: string) => {
+      let genre = await Genre.findOne({ name });
+      if (!genre) {
+        genre = new Genre({ name });
+        await genre.save();
+      }
+      return genre._id;
+    }));
+
+    const updatedNovel = await Novel.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        releaseDate: new Date(releaseDate),
+        coverImage,
+        rating,
+        status,
+        authors: authorIds,
+        publisher: publisherId,
+        genres: genreIds,
+      },
+      { new: true }
+    ).populate('authors', 'name bio')
+     .populate('publisher', 'name location')
+     .populate('genres', 'name');
+
+    if (!updatedNovel) {
+      return NextResponse.json({ error: 'Novel not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(updatedNovel);
+  } catch (error) {
+    console.error('Failed to update novel:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+export { POST, GET, PUT };

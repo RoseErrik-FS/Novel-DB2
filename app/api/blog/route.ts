@@ -1,17 +1,17 @@
-// app\api\news\route.ts
+// app\api\blog\route.ts
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { NewsItemProps } from "@/types/news";
+import { BlogItemProps } from "@/types/blog";
 
-const newsDirectory = path.join(process.cwd(), "content/news");
+const blogDirectory = path.join(process.cwd(), "content/blog");
 
 export async function GET(req: NextRequest) {
-  const files = fs.readdirSync(newsDirectory);
+  const files = fs.readdirSync(blogDirectory);
 
-  const newsItems = files.map((fileName) => {
-    const filePath = path.join(newsDirectory, fileName);
+  const blogItems = files.map((fileName) => {
+    const filePath = path.join(blogDirectory, fileName);
     const fileContents = fs.readFileSync(filePath, "utf8");
     const { data } = matter(fileContents);
     const slug = fileName.replace(/\.mdx?$/, "");
@@ -22,8 +22,8 @@ export async function GET(req: NextRequest) {
       date: data.date,
       author: data.author,
       link: `${slug}`,
-    } as NewsItemProps;
+    } as BlogItemProps;
   });
 
-  return NextResponse.json(newsItems);
+  return NextResponse.json(blogItems);
 }

@@ -1,7 +1,7 @@
 // components\novels\NovelEditClient.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import NovelForm from "@/components/novels/NovelForm";
@@ -33,45 +33,48 @@ const NovelEditClient = ({ initialData, novelId }: NovelEditClientProps) => {
   const [novelData, setNovelData] = useState(initialData);
   const [loading, setLoading] = useState(false);
 
-  const updateNovelData = async (novelId: string) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`/api/novels/${novelId}`);
-      const novel = response.data;
-      if (!novel) {
-        throw new Error("Novel not found");
+  const updateNovelData = useCallback(
+    async (novelId: string) => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`/api/novels/${novelId}`);
+        const novel = response.data;
+        if (!novel) {
+          throw new Error("Novel not found");
+        }
+        setNovelData({
+          _id: novel._id,
+          title: novel.title,
+          description: novel.description,
+          releaseDate: new Date(novel.releaseDate).toISOString(), // Ensure it's a string
+          coverImage: novel.coverImage || null,
+          rating: novel.rating,
+          status: novel.status,
+          authors: novel.authors.map((author: any) => ({
+            value: author.name,
+            label: author.name,
+          })),
+          publisher: isPublisherObject(novel.publisher)
+            ? { value: novel.publisher.name, label: novel.publisher.name }
+            : null,
+          genres: novel.genres.map((genre: any) => ({
+            value: genre.name,
+            label: genre.name,
+          })),
+        });
+      } catch (error) {
+        console.error("Failed to fetch novel", error);
+        router.push("/404");
+      } finally {
+        setLoading(false);
       }
-      setNovelData({
-        _id: novel._id,
-        title: novel.title,
-        description: novel.description,
-        releaseDate: new Date(novel.releaseDate).toISOString(), // Ensure it's a string
-        coverImage: novel.coverImage || null,
-        rating: novel.rating,
-        status: novel.status,
-        authors: novel.authors.map((author: any) => ({
-          value: author.name,
-          label: author.name,
-        })),
-        publisher: isPublisherObject(novel.publisher)
-          ? { value: novel.publisher.name, label: novel.publisher.name }
-          : null,
-        genres: novel.genres.map((genre: any) => ({
-          value: genre.name,
-          label: genre.name,
-        })),
-      });
-    } catch (error) {
-      console.error("Failed to fetch novel", error);
-      router.push("/404");
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [router]
+  );
 
   useEffect(() => {
     updateNovelData(novelId);
-  }, [novelId]);
+  }, [novelId, updateNovelData]);
 
   if (loading) {
     return <div>Loading...</div>;

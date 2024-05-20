@@ -5,6 +5,8 @@ import matter from "gray-matter";
 import { BlogItemProps } from "@/types/blog";
 import BlogListingClient from "@/components/blog/BlogListingClient";
 
+export const dynamic = "force-dynamic";
+
 const blogDirectory = path.join(process.cwd(), "content/blog");
 
 const BlogListingPage = async () => {

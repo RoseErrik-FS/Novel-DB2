@@ -5,6 +5,8 @@ import path from "path";
 import matter from "gray-matter";
 import { NewsItemProps } from "@/types/news";
 
+export const dynamic = "force-dynamic";
+
 const newsDirectory = path.join(process.cwd(), "content/news");
 
 export async function GET(req: NextRequest) {

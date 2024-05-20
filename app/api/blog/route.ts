@@ -5,6 +5,8 @@ import path from "path";
 import matter from "gray-matter";
 import { BlogItemProps } from "@/types/blog";
 
+export const dynamic = "force-dynamic";
+
 const blogDirectory = path.join(process.cwd(), "content/blog");
 
 export async function GET(req: NextRequest) {

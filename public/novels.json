@@ -1,0 +1,1367 @@
+[
+  {
+    "coverImage": null,
+    "_id": "662db125a2d5ba5e454be10b",
+    "title": "New Novel",
+    "description": "This is a new novel",
+    "releaseDate": "2023-05-01T00:00:00.000Z",
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      },
+      {
+        "_id": "662db125a2d5ba5e454be102",
+        "name": "Author 2",
+        "bio": "Author 2 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      },
+      {
+        "_id": "662db125a2d5ba5e454be108",
+        "name": "Genre 2"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "coverImage": null,
+    "_id": "662db8b34c0694989f2824c1",
+    "title": "New Novel",
+    "description": "This is a new novel",
+    "releaseDate": "2023-05-01T00:00:00.000Z",
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db8b34c0694989f2824b7",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      },
+      {
+        "_id": "662db8b34c0694989f2824b8",
+        "name": "Author 2",
+        "bio": "Author 2 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db8b34c0694989f2824bb",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db8b34c0694989f2824bd",
+        "name": "Genre 1"
+      },
+      {
+        "_id": "662db8b34c0694989f2824be",
+        "name": "Genre 2"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "66305620989898dd106c06b2",
+    "title": "New Novel",
+    "description": "This is a new novel",
+    "releaseDate": "2023-05-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "66305620989898dd106c06a7",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      },
+      {
+        "_id": "66305620989898dd106c06a8",
+        "name": "Author 2",
+        "bio": "Author 2 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "66305620989898dd106c06ac",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "66305620989898dd106c06ae",
+        "name": "Genre 1"
+      },
+      {
+        "_id": "66305620989898dd106c06af",
+        "name": "Genre 2"
+      }
+    ],
+    "createdAt": "2024-04-30T02:23:28.790Z",
+    "updatedAt": "2024-04-30T02:23:28.790Z",
+    "__v": 0
+  },
+  {
+    "_id": "66348240368665fdf2979dd2",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "66348240368665fdf2979dc6",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "66348240368665fdf2979dc8",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "66348240368665fdf2979dca",
+        "name": "Isekai"
+      },
+      {
+        "_id": "66348240368665fdf2979dcb",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "66348240368665fdf2979dcc",
+        "name": "Action"
+      },
+      {
+        "_id": "66348240368665fdf2979dcd",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-03T06:20:48.108Z",
+    "updatedAt": "2024-05-03T06:20:48.108Z",
+    "__v": 0
+  },
+  {
+    "_id": "66370401368665fdf2979e08",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "66370401368665fdf2979dfc",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "66370401368665fdf2979dfe",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "66370401368665fdf2979e00",
+        "name": "Isekai"
+      },
+      {
+        "_id": "66370401368665fdf2979e01",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "66370401368665fdf2979e02",
+        "name": "Action"
+      },
+      {
+        "_id": "66370401368665fdf2979e03",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T03:58:57.242Z",
+    "updatedAt": "2024-05-05T03:58:57.242Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733af35a29b4d895fee68",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733af35a29b4d895fee5c",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733af35a29b4d895fee5e",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733af35a29b4d895fee60",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733af35a29b4d895fee61",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733af35a29b4d895fee62",
+        "name": "Action"
+      },
+      {
+        "_id": "663733af35a29b4d895fee63",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:23.184Z",
+    "updatedAt": "2024-05-05T07:22:23.184Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b135a29b4d895fee76",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b135a29b4d895fee6a",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b135a29b4d895fee6c",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b135a29b4d895fee6e",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b135a29b4d895fee6f",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b135a29b4d895fee70",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b135a29b4d895fee71",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:25.802Z",
+    "updatedAt": "2024-05-05T07:22:25.802Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b235a29b4d895fee84",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b235a29b4d895fee78",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b235a29b4d895fee7a",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b235a29b4d895fee7c",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b235a29b4d895fee7d",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b235a29b4d895fee7e",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b235a29b4d895fee7f",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:26.414Z",
+    "updatedAt": "2024-05-05T07:22:26.414Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b335a29b4d895fee92",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b335a29b4d895fee86",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b335a29b4d895fee88",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b335a29b4d895fee8a",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b335a29b4d895fee8b",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b335a29b4d895fee8c",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b335a29b4d895fee8d",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:27.093Z",
+    "updatedAt": "2024-05-05T07:22:27.093Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b335a29b4d895feea0",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b335a29b4d895fee94",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b335a29b4d895fee96",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b335a29b4d895fee98",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b335a29b4d895fee99",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b335a29b4d895fee9a",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b335a29b4d895fee9b",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:27.649Z",
+    "updatedAt": "2024-05-05T07:22:27.649Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b435a29b4d895feeae",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b435a29b4d895feea2",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b435a29b4d895feea4",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b435a29b4d895feea6",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b435a29b4d895feea7",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b435a29b4d895feea8",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b435a29b4d895feea9",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:28.257Z",
+    "updatedAt": "2024-05-05T07:22:28.257Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b435a29b4d895feebc",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b435a29b4d895feeb0",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b435a29b4d895feeb2",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b435a29b4d895feeb4",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b435a29b4d895feeb5",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b435a29b4d895feeb6",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b435a29b4d895feeb7",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:28.820Z",
+    "updatedAt": "2024-05-05T07:22:28.820Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b535a29b4d895feeca",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b535a29b4d895feebe",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b535a29b4d895feec0",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b535a29b4d895feec2",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b535a29b4d895feec3",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b535a29b4d895feec4",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b535a29b4d895feec5",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:29.450Z",
+    "updatedAt": "2024-05-05T07:22:29.450Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b535a29b4d895feed8",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b535a29b4d895feecc",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b535a29b4d895feece",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b535a29b4d895feed0",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b535a29b4d895feed1",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b535a29b4d895feed2",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b535a29b4d895feed3",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:29.996Z",
+    "updatedAt": "2024-05-05T07:22:29.996Z",
+    "__v": 0
+  },
+  {
+    "_id": "663733b635a29b4d895feee6",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663733b635a29b4d895feeda",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663733b635a29b4d895feedc",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663733b635a29b4d895feede",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663733b635a29b4d895feedf",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663733b635a29b4d895feee0",
+        "name": "Action"
+      },
+      {
+        "_id": "663733b635a29b4d895feee1",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:22:30.587Z",
+    "updatedAt": "2024-05-05T07:22:30.587Z",
+    "__v": 0
+  },
+  {
+    "_id": "6637343b4d774ac0a6b26276",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "6637343b4d774ac0a6b26269",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "6637343b4d774ac0a6b2626c",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "6637343b4d774ac0a6b2626e",
+        "name": "Isekai"
+      },
+      {
+        "_id": "6637343b4d774ac0a6b2626f",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "6637343b4d774ac0a6b26270",
+        "name": "Action"
+      },
+      {
+        "_id": "6637343b4d774ac0a6b26271",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:24:43.385Z",
+    "updatedAt": "2024-05-05T07:24:43.385Z",
+    "__v": 0
+  },
+  {
+    "_id": "6637343d4d774ac0a6b26284",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "6637343d4d774ac0a6b26278",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "6637343d4d774ac0a6b2627a",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "6637343d4d774ac0a6b2627c",
+        "name": "Isekai"
+      },
+      {
+        "_id": "6637343d4d774ac0a6b2627d",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "6637343d4d774ac0a6b2627e",
+        "name": "Action"
+      },
+      {
+        "_id": "6637343d4d774ac0a6b2627f",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:24:45.866Z",
+    "updatedAt": "2024-05-05T07:24:45.866Z",
+    "__v": 0
+  },
+  {
+    "_id": "663734514d774ac0a6b2629a",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663734514d774ac0a6b2628e",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663734514d774ac0a6b26290",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663734514d774ac0a6b26292",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663734514d774ac0a6b26293",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663734514d774ac0a6b26294",
+        "name": "Action"
+      },
+      {
+        "_id": "663734514d774ac0a6b26295",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:25:05.367Z",
+    "updatedAt": "2024-05-05T07:25:05.367Z",
+    "__v": 0
+  },
+  {
+    "_id": "663734544d774ac0a6b262a8",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663734544d774ac0a6b2629c",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663734544d774ac0a6b2629e",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663734544d774ac0a6b262a0",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663734544d774ac0a6b262a1",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663734544d774ac0a6b262a2",
+        "name": "Action"
+      },
+      {
+        "_id": "663734544d774ac0a6b262a3",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:25:08.514Z",
+    "updatedAt": "2024-05-05T07:25:08.514Z",
+    "__v": 0
+  },
+  {
+    "_id": "663734574d774ac0a6b262b6",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663734574d774ac0a6b262aa",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663734574d774ac0a6b262ac",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663734574d774ac0a6b262ae",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663734574d774ac0a6b262af",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663734574d774ac0a6b262b0",
+        "name": "Action"
+      },
+      {
+        "_id": "663734574d774ac0a6b262b1",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:25:11.281Z",
+    "updatedAt": "2024-05-05T07:25:11.281Z",
+    "__v": 0
+  },
+  {
+    "_id": "6637345d4d774ac0a6b262c4",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "6637345d4d774ac0a6b262b8",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "6637345d4d774ac0a6b262ba",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "6637345d4d774ac0a6b262bc",
+        "name": "Isekai"
+      },
+      {
+        "_id": "6637345d4d774ac0a6b262bd",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "6637345d4d774ac0a6b262be",
+        "name": "Action"
+      },
+      {
+        "_id": "6637345d4d774ac0a6b262bf",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:25:17.186Z",
+    "updatedAt": "2024-05-05T07:25:17.186Z",
+    "__v": 0
+  },
+  {
+    "_id": "663734604d774ac0a6b262d2",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "663734604d774ac0a6b262c6",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "663734604d774ac0a6b262c8",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "663734604d774ac0a6b262ca",
+        "name": "Isekai"
+      },
+      {
+        "_id": "663734604d774ac0a6b262cb",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "663734604d774ac0a6b262cc",
+        "name": "Action"
+      },
+      {
+        "_id": "663734604d774ac0a6b262cd",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:25:20.229Z",
+    "updatedAt": "2024-05-05T07:25:20.229Z",
+    "__v": 0
+  },
+  {
+    "_id": "6637385e4d774ac0a6b26330",
+    "title": "Reincarnated as a Sword",
+    "description": "A man dies and is reincarnated as a magical sword in another world. He forms a partnership with a young catgirl named Fran, and together they embark on adventurous quests and battles.",
+    "releaseDate": "2015-10-01T00:00:00.000Z",
+    "coverImage": "https://example.com/cover-image.jpg",
+    "rating": 4.5,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "6637385e4d774ac0a6b26324",
+        "name": "Yuu Tanaka",
+        "bio": "Yuu Tanaka is a Japanese light novel author best known for the series 'Reincarnated as a Sword' and 'There's No Way a Side Character Like Me Could Be Popular, Right?'."
+      }
+    ],
+    "publisher": {
+      "_id": "6637385e4d774ac0a6b26326",
+      "name": "Micro Magazine",
+      "location": "Tokyo, Japan"
+    },
+    "genres": [
+      {
+        "_id": "6637385e4d774ac0a6b26328",
+        "name": "Isekai"
+      },
+      {
+        "_id": "6637385e4d774ac0a6b26329",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "6637385e4d774ac0a6b2632a",
+        "name": "Action"
+      },
+      {
+        "_id": "6637385e4d774ac0a6b2632b",
+        "name": "Adventure"
+      }
+    ],
+    "createdAt": "2024-05-05T07:42:22.144Z",
+    "updatedAt": "2024-05-05T07:42:22.144Z",
+    "__v": 0
+  },
+  {
+    "_id": "66458a7bbc49255844418443",
+    "title": "Kuma Kuma Kuma Bear",
+    "description": "Yuna is a bored teenage girl who spends her time as a NEET and living off money she makes in the stock market, being mooched off by her parents. While playing her favorite FPV online game World Fantasy Online, Yuna receives an embarrassing bear suit as a gift for playing so long. The administrator of the game turns out to be a God, who based the game on her world. She then transports Yuna into said world without a real warning with the bear suit, which she is powerless without as it grants her special powers. Despite her initial anger at being teleported without consent, and that there is no way back to her old world, Yuna quickly adapts and finds her new life more fulfilling than the empty one back on Earth as her actions cause her to rise in fame. ",
+    "releaseDate": "2013-10-13T00:00:00.000Z",
+    "coverImage": "https://cdn.novelupdates.com/images/2021/05/Kuma-Kuma-Kuma-Bear.jpg",
+    "rating": 5,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "66458a7bbc49255844418436",
+        "name": "Kumanano"
+      },
+      {
+        "_id": "66458a7bbc49255844418434",
+        "name": "029"
+      }
+    ],
+    "publisher": {
+      "_id": "66458a7bbc49255844418439",
+      "name": "Seven Seas Entertainment"
+    },
+    "genres": [
+      {
+        "_id": "663481be368665fdf2979dbd",
+        "name": "Isekai"
+      },
+      {
+        "_id": "66458a7bbc4925584441843f",
+        "name": "Iyashikei"
+      },
+      {
+        "_id": "663481be368665fdf2979dbe",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "66458a7bbc49255844418441",
+        "name": "Slice of Life"
+      }
+    ],
+    "createdAt": "2024-05-16T04:24:27.551Z",
+    "updatedAt": "2024-05-19T03:01:51.626Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646acdfc1f8883ba8c5895d",
+    "title": "e",
+    "description": "e",
+    "releaseDate": "2024-05-03T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-17T01:03:27.783Z",
+    "updatedAt": "2024-05-17T01:03:27.783Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646ad5bf8a6318fc6e0782e",
+    "title": "ddsss",
+    "description": "dd",
+    "releaseDate": "2024-05-16T00:00:00.000Z",
+    "coverImage": "",
+    "rating": 5,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-17T01:05:31.841Z",
+    "updatedAt": "2024-05-19T04:11:34.117Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646af41e4361f5d729db3f5",
+    "title": "fddsss",
+    "description": "sd",
+    "releaseDate": "2024-05-16T00:00:00.000Z",
+    "coverImage": "",
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be102",
+        "name": "Author 2",
+        "bio": "Author 2 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be108",
+        "name": "Genre 2"
+      }
+    ],
+    "createdAt": "2024-05-17T01:13:37.609Z",
+    "updatedAt": "2024-05-19T04:11:22.739Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646b00ee4361f5d729db410",
+    "title": "dd",
+    "description": "dd",
+    "releaseDate": "2024-05-01T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-17T01:17:02.487Z",
+    "updatedAt": "2024-05-17T01:17:02.487Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646b040ed43122aefc2c0af",
+    "title": "fggdfs",
+    "description": "fdg",
+    "releaseDate": "2024-05-02T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-17T01:17:52.229Z",
+    "updatedAt": "2024-05-17T01:17:52.229Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646b0e1ed43122aefc2c0ca",
+    "title": "df",
+    "description": "df",
+    "releaseDate": "2024-04-29T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 2,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be102",
+        "name": "Author 2",
+        "bio": "Author 2 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-17T01:20:33.416Z",
+    "updatedAt": "2024-05-17T01:20:33.416Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646b13bed43122aefc2c0d4",
+    "title": "er",
+    "description": "df",
+    "releaseDate": "2024-04-30T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [],
+    "createdAt": "2024-05-17T01:22:03.761Z",
+    "updatedAt": "2024-05-17T01:22:03.761Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646b1c6ed43122aefc2c0f7",
+    "title": "df",
+    "description": "df",
+    "releaseDate": "2024-05-13T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-17T01:24:22.787Z",
+    "updatedAt": "2024-05-19T03:02:37.460Z",
+    "__v": 0
+  },
+  {
+    "_id": "6646b549ed43122aefc2c106",
+    "title": "dddddd",
+    "description": "ddddd",
+    "releaseDate": "2024-05-16T00:00:00.000Z",
+    "coverImage": null,
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-17T01:39:21.585Z",
+    "updatedAt": "2024-05-17T01:39:21.585Z",
+    "__v": 0
+  },
+  {
+    "_id": "664830267970ba8432c5b3c6",
+    "title": "dd",
+    "description": "dd",
+    "releaseDate": "2024-05-09T00:00:00.000Z",
+    "coverImage": "https://static.wikia.nocookie.net/potiondanomi-de-ikinobimasu/images/f/fc/Light_Novel_Volume_1_Cover_%28JP%29.jpeg/revision/latest?cb=20200622174024",
+    "rating": 4,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "662db125a2d5ba5e454be101",
+        "name": "Author 1",
+        "bio": "Author 1 bio"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-18T04:35:50.231Z",
+    "updatedAt": "2024-05-18T04:35:50.231Z",
+    "__v": 0
+  },
+  {
+    "_id": "66494ea07970ba8432c5b3d3",
+    "title": "dd",
+    "description": "dd",
+    "releaseDate": "2024-05-10T00:00:00.000Z",
+    "coverImage": "https://static.wikia.nocookie.net/potiondanomi-de-ikinobimasu/images/f/fc/Light_Novel_Volume_1_Cover_%28JP%29.jpeg/revision/latest?cb=20200622174024",
+    "rating": 0,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "66494ea07970ba8432c5b3cf",
+        "name": "ff"
+      }
+    ],
+    "publisher": {
+      "_id": "662db125a2d5ba5e454be105",
+      "name": "Publisher 1",
+      "location": "New York"
+    },
+    "genres": [
+      {
+        "_id": "662db125a2d5ba5e454be107",
+        "name": "Genre 1"
+      }
+    ],
+    "createdAt": "2024-05-19T00:58:08.193Z",
+    "updatedAt": "2024-05-19T00:58:08.193Z",
+    "__v": 0
+  },
+  {
+    "_id": "6649670c7229eba75a402785",
+    "title": "Kuma Kuma Kuma Bear",
+    "description": "Yuna is a bored teenage girl who spends her time as a NEET and living off money she makes in the stock market, being mooched off by her parents. While playing her favorite FPV online game World Fantasy Online, Yuna receives an embarrassing bear suit as a gift for playing so long. The administrator of the game turns out to be a God, who based the game on her world. She then transports Yuna into said world without a real warning with the bear suit, which she is powerless without as it grants her special powers. Despite her initial anger at being teleported without consent, and that there is no way back to her old world, Yuna quickly adapts and finds her new life more fulfilling than the empty one back on Earth as her actions cause her to rise in fame. ",
+    "releaseDate": "2013-10-13T00:00:00.000Z",
+    "coverImage": "https://cdn.novelupdates.com/images/2021/05/Kuma-Kuma-Kuma-Bear.jpg",
+    "rating": 5,
+    "status": "ongoing",
+    "authors": [
+      {
+        "_id": "66458a7bbc49255844418436",
+        "name": "Kumanano"
+      },
+      {
+        "_id": "66458a7bbc49255844418434",
+        "name": "029"
+      }
+    ],
+    "publisher": {
+      "_id": "66458a7bbc49255844418439",
+      "name": "Seven Seas Entertainment"
+    },
+    "genres": [
+      {
+        "_id": "663481be368665fdf2979dbd",
+        "name": "Isekai"
+      },
+      {
+        "_id": "66458a7bbc4925584441843f",
+        "name": "Iyashikei"
+      },
+      {
+        "_id": "663481be368665fdf2979dbe",
+        "name": "Fantasy"
+      },
+      {
+        "_id": "66458a7bbc49255844418441",
+        "name": "Slice of Life"
+      }
+    ],
+    "createdAt": "2024-05-19T02:42:20.709Z",
+    "updatedAt": "2024-05-19T02:42:20.709Z",
+    "__v": 0
+  }
+]

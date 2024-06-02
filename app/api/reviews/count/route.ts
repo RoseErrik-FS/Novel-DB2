@@ -1,7 +1,7 @@
 // app\api\reviews\count\route.ts
-
 import { connectToDatabase } from "@/lib/db";
 import { Review } from "@/models/review";
+import { handleErrorResponse } from "@/lib/errorHandler"; // Import the error handler
 
 export const dynamic = "force-dynamic";
 
@@ -17,13 +17,7 @@ async function GET(request: Request) {
       },
     });
   } catch (error) {
-    console.error("Error fetching total reviews count:", error);
-    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 

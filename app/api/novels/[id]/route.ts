@@ -9,15 +9,16 @@ import { connectToDatabase } from "@/lib/db";
 import { rateLimiter } from "@/lib/rateLimiter";
 import mongoose from "mongoose";
 import { authMiddleware } from "@/lib/AuthMiddleware";
+import { handleErrorResponse } from "@/lib/errorHandler"; // Import the error handler
 
 export const dynamic = "force-dynamic";
 
 const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10);
 
 async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  await connectToDatabase();
-
   try {
+    await connectToDatabase();
+
     const { id } = params;
     if (!id) {
       return NextResponse.json({ error: "Invalid request" }, { status: 400 });
@@ -34,33 +35,29 @@ async function GET(req: NextRequest, { params }: { params: { id: string } }) {
 
     return NextResponse.json(novel);
   } catch (error) {
-    console.error("Failed to retrieve novel:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function POST(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await createNovelLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await createNovelLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const {
       title,
       description,
@@ -112,23 +109,19 @@ async function POST(req: NextRequest) {
     await novel.save();
     return NextResponse.json(novel, { status: 201 });
   } catch (error) {
-    console.error("Failed to create novel:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
     const { id } = params;
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid novel ID" }, { status: 400 });
@@ -213,11 +206,7 @@ async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
 
     return NextResponse.json(updatedNovel);
   } catch (error) {
-    console.error("Failed to update novel:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 

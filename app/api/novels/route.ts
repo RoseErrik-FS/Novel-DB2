@@ -8,6 +8,7 @@ import { Genre, IGenre } from "@/models/genre";
 import { connectToDatabase } from "@/lib/db";
 import { rateLimiter } from "@/lib/rateLimiter";
 import { authMiddleware } from "@/lib/AuthMiddleware";
+import { handleErrorResponse } from "@/lib/errorHandler"; // Import the error handler
 
 export const dynamic = "force-dynamic";
 
@@ -15,24 +16,24 @@ const createNovelLimiter = rateLimiter(15 * 60 * 1000, 10);
 const updateDeleteNovelLimiter = rateLimiter(15 * 60 * 1000, 5);
 
 async function POST(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await createNovelLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await createNovelLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const {
       title,
       description,
@@ -89,18 +90,14 @@ async function POST(req: NextRequest) {
     await novel.save();
     return NextResponse.json({ id: novel._id }, { status: 201 }); // Explicitly return the novel ID
   } catch (error) {
-    console.error("Failed to create novel:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function GET(req: NextRequest) {
-  await connectToDatabase();
-
   try {
+    await connectToDatabase();
+
     const novels = await Novel.find()
       .populate("authors", "name bio")
       .populate("publisher", "name location")
@@ -108,33 +105,29 @@ async function GET(req: NextRequest) {
 
     return NextResponse.json(novels);
   } catch (error) {
-    console.error("Failed to retrieve novels:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function PUT(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await updateDeleteNovelLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await updateDeleteNovelLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const {
       title,
       description,
@@ -199,28 +192,24 @@ async function PUT(req: NextRequest) {
 
     return NextResponse.json(novel);
   } catch (error) {
-    console.error("Failed to update novel:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function DELETE(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await updateDeleteNovelLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await updateDeleteNovelLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const id = req.nextUrl.searchParams.get("id");
     const novel = await Novel.findByIdAndDelete(id);
     if (!novel) {
@@ -228,11 +217,7 @@ async function DELETE(req: NextRequest) {
     }
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error("Failed to delete novel:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 

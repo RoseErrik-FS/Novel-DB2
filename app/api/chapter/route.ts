@@ -5,6 +5,7 @@ import { Chapter, IChapter } from "@/models/chapter";
 import { connectToDatabase } from "@/lib/db";
 import { rateLimiter } from "@/lib/rateLimiter";
 import { authMiddleware } from "@/lib/AuthMiddleware";
+import { handleErrorResponse } from "@/lib/errorHandler"; // Import the error handler
 
 export const dynamic = "force-dynamic";
 
@@ -15,24 +16,24 @@ const createChapterLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 
 const updateDeleteChapterLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes, 5 requests per windowMs
 
 async function POST(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await createChapterLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await createChapterLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const { title, number, releaseDate, volume } = await req.json();
 
     const chapter: IChapter = new Chapter({
@@ -45,18 +46,14 @@ async function POST(req: NextRequest) {
     await chapter.save();
     return NextResponse.json(chapter, { status: 201 });
   } catch (error) {
-    console.error("Failed to create chapter:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function GET(req: NextRequest) {
-  await connectToDatabase();
-
   try {
+    await connectToDatabase();
+
     if (req.nextUrl.searchParams.get("id")) {
       const chapter = await Chapter.findById(
         req.nextUrl.searchParams.get("id")
@@ -73,33 +70,29 @@ async function GET(req: NextRequest) {
       return NextResponse.json(chapters);
     }
   } catch (error) {
-    console.error("Failed to retrieve chapters:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function PUT(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await updateDeleteChapterLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await updateDeleteChapterLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const { title, number, releaseDate, volume } = await req.json();
 
     const chapterData: Partial<IChapter> = {
@@ -121,28 +114,24 @@ async function PUT(req: NextRequest) {
 
     return NextResponse.json(updatedChapter);
   } catch (error) {
-    console.error("Failed to update chapter:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function DELETE(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await updateDeleteChapterLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await updateDeleteChapterLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const deletedChapter = await Chapter.findByIdAndDelete(
       req.nextUrl.searchParams.get("id")
     );
@@ -151,11 +140,7 @@ async function DELETE(req: NextRequest) {
     }
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error("Failed to delete chapter:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 

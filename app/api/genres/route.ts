@@ -5,6 +5,7 @@ import { Genre, IGenre } from "@/models/genre";
 import { connectToDatabase } from "@/lib/db";
 import { rateLimiter } from "@/lib/rateLimiter";
 import { authMiddleware } from "@/lib/AuthMiddleware";
+import { handleErrorResponse } from "@/lib/errorHandler"; // Import the error handler
 
 export const dynamic = "force-dynamic";
 
@@ -15,24 +16,24 @@ const createGenreLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 re
 const updateDeleteGenreLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes, 5 requests per windowMs
 
 async function POST(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await createGenreLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await createGenreLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const { name } = await req.json();
 
     const genre: IGenre = new Genre({
@@ -42,18 +43,14 @@ async function POST(req: NextRequest) {
     await genre.save();
     return NextResponse.json(genre, { status: 201 });
   } catch (error) {
-    console.error("Failed to create genre:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function GET(req: NextRequest) {
-  await connectToDatabase();
-
   try {
+    await connectToDatabase();
+
     const id = req.nextUrl.searchParams.get("id");
     if (id) {
       const genre = await Genre.findById(id).select("name");
@@ -66,32 +63,29 @@ async function GET(req: NextRequest) {
       return NextResponse.json(genres);
     }
   } catch (error) {
-    console.error("Failed to retrieve genres:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function PUT(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-  const allowed = await updateDeleteGenreLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await updateDeleteGenreLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const { name } = await req.json();
 
     const genre = await Genre.findByIdAndUpdate(
@@ -108,28 +102,24 @@ async function PUT(req: NextRequest) {
 
     return NextResponse.json(genre);
   } catch (error) {
-    console.error("Failed to update genre:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function DELETE(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await updateDeleteGenreLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await updateDeleteGenreLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const genre = await Genre.findByIdAndDelete(
       req.nextUrl.searchParams.get("id")
     );
@@ -138,11 +128,7 @@ async function DELETE(req: NextRequest) {
     }
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error("Failed to delete genre:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 

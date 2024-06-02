@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Novel } from "@/models/novel";
 import { connectToDatabase } from "@/lib/db";
 import { rateLimiter } from "@/lib/rateLimiter";
+import { handleErrorResponse } from "@/lib/errorHandler"; // Import the error handler
 
 // Rate limiting configuration for searching novels
 const searchNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 requests per windowMs
@@ -10,15 +11,15 @@ const searchNovelLimiter = rateLimiter(15 * 60 * 1000, 10); // 15 minutes, 10 re
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  await connectToDatabase();
-
-  const allowed = await searchNovelLimiter(req);
-
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const allowed = await searchNovelLimiter(req);
+
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const query = req.nextUrl.searchParams.get("q") || "";
 
     const novels = await Novel.aggregate([
@@ -83,10 +84,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(novels);
   } catch (error) {
-    console.error("Failed to search novels:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }

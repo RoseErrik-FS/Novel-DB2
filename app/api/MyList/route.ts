@@ -4,55 +4,48 @@ import { getSession } from "next-auth/react";
 import { MyList, IMyList } from "@/models/myList";
 import { connectToDatabase } from "@/lib/db";
 import { authMiddleware } from "@/lib/AuthMiddleware";
+import { handleErrorResponse } from "@/lib/errorHandler"; // Import the error handler
 
 export const dynamic = "force-dynamic";
 
 async function GET(req: NextRequest) {
-  await connectToDatabase();
-
-  const headers = Object.fromEntries(req.headers.entries());
-  const mockReq = {
-    headers,
-  };
-  const session = await getSession({ req: mockReq });
-
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const headers = Object.fromEntries(req.headers.entries());
+    const mockReq = { headers };
+    const session = await getSession({ req: mockReq });
+
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const myLists = await MyList.find({ userId: session.user?.email }).populate(
       "novelId"
     );
     return NextResponse.json(myLists);
   } catch (error) {
-    console.error("Failed to retrieve user lists:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function POST(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const headers = Object.fromEntries(req.headers.entries());
-  const mockReq = {
-    headers,
-  };
-  const session = await getSession({ req: mockReq });
-
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const headers = Object.fromEntries(req.headers.entries());
+    const mockReq = { headers };
+    const session = await getSession({ req: mockReq });
+
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { novelId, collectionName } = await req.json();
 
     const myList: IMyList = new MyList({
@@ -64,33 +57,27 @@ async function POST(req: NextRequest) {
     await myList.save();
     return NextResponse.json(myList, { status: 201 });
   } catch (error) {
-    console.error("Failed to create user list:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function PUT(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const headers = Object.fromEntries(req.headers.entries());
-  const mockReq = {
-    headers,
-  };
-  const session = await getSession({ req: mockReq });
-
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const headers = Object.fromEntries(req.headers.entries());
+    const mockReq = { headers };
+    const session = await getSession({ req: mockReq });
+
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { novelId } = await req.json();
     const id = req.nextUrl.searchParams.get("id");
 
@@ -109,38 +96,33 @@ async function PUT(req: NextRequest) {
 
     return NextResponse.json(myList);
   } catch (error) {
-    console.error("Failed to update user list:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function DELETE(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const headers = Object.fromEntries(req.headers.entries());
-  const mockReq = {
-    headers,
-  };
-  const session = await getSession({ req: mockReq });
-
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const headers = Object.fromEntries(req.headers.entries());
+    const mockReq = { headers };
+    const session = await getSession({ req: mockReq });
+
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { novelId } = await req.json();
     const myList = await MyList.findOneAndDelete({
       novelId,
       userId: session.user?.email,
     });
+
     if (!myList) {
       return NextResponse.json(
         { error: "User list not found" },
@@ -149,11 +131,7 @@ async function DELETE(req: NextRequest) {
     }
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error("Failed to delete user list:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 

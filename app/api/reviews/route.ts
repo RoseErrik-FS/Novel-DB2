@@ -7,6 +7,7 @@ import { User, IUser } from "@/models/user";
 import { connectToDatabase } from "@/lib/db";
 import { rateLimiter } from "@/lib/rateLimiter";
 import { authMiddleware } from "@/lib/AuthMiddleware";
+import { handleErrorResponse } from "@/lib/errorHandler"; // Import the error handler
 
 export const dynamic = "force-dynamic";
 
@@ -17,24 +18,24 @@ const createReviewLimiter = rateLimiter(15 * 60 * 1000, 5); // 15 minutes, 5 req
 const updateDeleteReviewLimiter = rateLimiter(15 * 60 * 1000, 3); // 15 minutes, 3 requests per windowMs
 
 async function POST(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await createReviewLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await createReviewLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const { rating, comment, novelId, userId } = await req.json();
 
     const novel: INovel | null = await Novel.findById(novelId);
@@ -57,18 +58,14 @@ async function POST(req: NextRequest) {
     await review.save();
     return NextResponse.json(review, { status: 201 });
   } catch (error) {
-    console.error("Failed to create review:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function GET(req: NextRequest) {
-  await connectToDatabase();
-
   try {
+    await connectToDatabase();
+
     if (req.nextUrl.searchParams.get("id")) {
       const review: IReview | null = await Review.findById(
         req.nextUrl.searchParams.get("id")
@@ -89,33 +86,29 @@ async function GET(req: NextRequest) {
       return NextResponse.json(reviews as IReview[]);
     }
   } catch (error) {
-    console.error("Failed to retrieve reviews:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function PUT(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await updateDeleteReviewLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const errors = await validationResult(req);
-  if (!errors.isEmpty()) {
-    return NextResponse.json({ errors: errors.array() }, { status: 400 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await updateDeleteReviewLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    const errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      return NextResponse.json({ errors: errors.array() }, { status: 400 });
+    }
+
     const { rating, comment } = await req.json();
 
     const review: IReview | null = await Review.findByIdAndUpdate(
@@ -133,28 +126,24 @@ async function PUT(req: NextRequest) {
 
     return NextResponse.json(review);
   } catch (error) {
-    console.error("Failed to update review:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 
 async function DELETE(req: NextRequest) {
-  await connectToDatabase();
-
-  const authResponse = await authMiddleware(req);
-  if (authResponse.status !== 200) {
-    return authResponse;
-  }
-
-  const allowed = await updateDeleteReviewLimiter(req);
-  if (!allowed) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
   try {
+    await connectToDatabase();
+
+    const authResponse = await authMiddleware(req);
+    if (authResponse.status !== 200) {
+      return authResponse;
+    }
+
+    const allowed = await updateDeleteReviewLimiter(req);
+    if (!allowed) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const review: IReview | null = await Review.findByIdAndDelete(
       req.nextUrl.searchParams.get("id")
     );
@@ -163,11 +152,7 @@ async function DELETE(req: NextRequest) {
     }
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error("Failed to delete review:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return handleErrorResponse(error); // Use the error handler
   }
 }
 

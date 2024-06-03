@@ -1,4 +1,3 @@
-// components\novels\NovelCard.tsx
 import React, { useState } from "react";
 import { Card, CardBody, CardFooter, Image, Tooltip } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
@@ -43,9 +42,15 @@ const NovelCard: React.FC<NovelCardProps> = ({ novel }) => {
           </Tooltip>
           <p className="text-sm font-medium text-default-600">
             by{" "}
-            {novel.authors
-              .map((author) => "name" in author && author.name)
-              .join(", ")}
+            {Array.isArray(novel.authors)
+              ? novel.authors
+                  .map((author) =>
+                    typeof author === "object" && "name" in author
+                      ? author.name
+                      : author
+                  )
+                  .join(", ")
+              : "Unknown"}
           </p>
           <p className="text-sm font-medium text-default-600">
             Rating: {novel.rating}

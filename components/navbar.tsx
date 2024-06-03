@@ -87,6 +87,12 @@ export const Navbar = () => {
         <NavbarItem>
           <NextLink href="/help">Help</NextLink>
         </NavbarItem>
+        <NavbarItem>
+          <NextLink href="/news">News</NextLink>
+        </NavbarItem>
+        <NavbarItem>
+          <NextLink href="/blog">Blog</NextLink>
+        </NavbarItem>
       </NavbarContent>
       <NavbarContent className="hidden lg:flex" justify="end">
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
@@ -157,6 +163,12 @@ export const Navbar = () => {
           </NavbarMenuItem>
           <NavbarMenuItem>
             <NextLink href="/help">Help</NextLink>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <NextLink href="/news">News</NextLink>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <NextLink href="/blog">Blog</NextLink>
           </NavbarMenuItem>
         </div>
       </NavbarMenu>

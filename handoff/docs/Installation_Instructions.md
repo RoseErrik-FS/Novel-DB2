@@ -10,8 +10,8 @@
 ## Clone the Repository
 
 ```sh
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/RoseErrik-FS/Novel-DB2
+cd Novel-DB2
 ```
 
 # Install Dependencies

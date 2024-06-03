@@ -2,6 +2,13 @@
 
 Novel-DB is a web application built with Next.js 14, NextUI, and NextAuth that allows users to explore and manage a database of novels. It provides a user-friendly interface for discovering new books, tracking reading progress, and engaging with a community of book enthusiasts.
 
+## Handoff
+
+ - [Project Plan](https://github.com/RoseErrik-FS/Novel-DB2/blob/handoff/handoff/docs/Project_Plan.md)
+ - [Change Orders](https://github.com/RoseErrik-FS/Novel-DB2/blob/handoff/handoff/docs/Change_Orders.md)
+ - [Maintenance Plan](https://github.com/RoseErrik-FS/Novel-DB2/blob/handoff/handoff/docs/Maintenance_Plan.md)
+ - [Istallation Instructions](https://github.com/RoseErrik-FS/Novel-DB2/blob/handoff/handoff/docs/Installation_Instructions.md)
+
 ## Features
 
 - User authentication and authorization using NextAuth

@@ -49,7 +49,6 @@ npm run dev
 - NextAuth
 - MongoDB
 - Mongoose
-- ZOD
 
 ## Contributing
 
@@ -66,6 +65,5 @@ Please ensure that your code follows the project's coding conventions and includ
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
 
 Happy reading with Novel-DB!
